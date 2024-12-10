@@ -1,0 +1,2210 @@
+<!DOCTYPE html>
+<html lang="en-us" data-darkreader-mode="dynamic" data-darkreader-scheme="dark"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><style class="darkreader darkreader--fallback" media="screen"></style><style class="darkreader darkreader--text" media="screen"></style><style class="darkreader darkreader--invert" media="screen">.jfk-bubble.gtx-bubble, .captcheck_answer_label > input + img, span#closed_text > img[src^="https://www.gstatic.com/images/branding/googlelogo"], span[data-href^="https://www.hcaptcha.com/"] > #icon, img.Wirisformula {
+    filter: invert(100%) hue-rotate(180deg) contrast(90%) !important;
+}</style><style class="darkreader darkreader--inline" media="screen">[data-darkreader-inline-bgcolor] {
+  background-color: var(--darkreader-inline-bgcolor) !important;
+}
+[data-darkreader-inline-bgimage] {
+  background-image: var(--darkreader-inline-bgimage) !important;
+}
+[data-darkreader-inline-border] {
+  border-color: var(--darkreader-inline-border) !important;
+}
+[data-darkreader-inline-border-bottom] {
+  border-bottom-color: var(--darkreader-inline-border-bottom) !important;
+}
+[data-darkreader-inline-border-left] {
+  border-left-color: var(--darkreader-inline-border-left) !important;
+}
+[data-darkreader-inline-border-right] {
+  border-right-color: var(--darkreader-inline-border-right) !important;
+}
+[data-darkreader-inline-border-top] {
+  border-top-color: var(--darkreader-inline-border-top) !important;
+}
+[data-darkreader-inline-boxshadow] {
+  box-shadow: var(--darkreader-inline-boxshadow) !important;
+}
+[data-darkreader-inline-color] {
+  color: var(--darkreader-inline-color) !important;
+}
+[data-darkreader-inline-fill] {
+  fill: var(--darkreader-inline-fill) !important;
+}
+[data-darkreader-inline-stroke] {
+  stroke: var(--darkreader-inline-stroke) !important;
+}
+[data-darkreader-inline-outline] {
+  outline-color: var(--darkreader-inline-outline) !important;
+}
+[data-darkreader-inline-stopcolor] {
+  stop-color: var(--darkreader-inline-stopcolor) !important;
+}
+[data-darkreader-inline-bg] {
+  background: var(--darkreader-inline-bg) !important;
+}
+[data-darkreader-inline-invert] {
+    filter: invert(100%) hue-rotate(180deg);
+}</style><style class="darkreader darkreader--variables" media="screen">:root {
+   --darkreader-neutral-background: #181a1b;
+   --darkreader-neutral-text: #e8e6e3;
+   --darkreader-selection-background: #004daa;
+   --darkreader-selection-text: #e8e6e3;
+}</style><style class="darkreader darkreader--root-vars" media="screen"></style><style class="darkreader darkreader--user-agent" media="screen">@layer {
+html {
+    background-color: #181a1b !important;
+}
+html {
+    color-scheme: dark !important;
+}
+iframe {
+    color-scheme: dark !important;
+}
+html, body {
+    background-color: #181a1b;
+}
+html, body {
+    border-color: #736b5e;
+    color: #e8e6e3;
+}
+a {
+    color: #3391ff;
+}
+table {
+    border-color: #545b5e;
+}
+mark {
+    color: #e8e6e3;
+}
+::placeholder {
+    color: #b2aba1;
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: #404400 !important;
+    color: #e8e6e3 !important;
+}
+::selection {
+    background-color: #004daa !important;
+    color: #e8e6e3 !important;
+}
+::-moz-selection {
+    background-color: #004daa !important;
+    color: #e8e6e3 !important;
+}
+}</style>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+
+<title itemprop="name">Making a simple HTTP webserver in C - bruinsslot.jp</title>
+<meta property="og:title" content="Making a simple HTTP webserver in C - bruinsslot.jp">
+<meta name="twitter:title" content="Making a simple HTTP webserver in C - bruinsslot.jp">
+<meta itemprop="name" content="Making a simple HTTP webserver in C - bruinsslot.jp">
+<meta name="application-name" content="Making a simple HTTP webserver in C - bruinsslot.jp">
+<meta property="og:site_name" content="Making a simple HTTP webserver in C - bruinsslot.jp">
+
+
+
+<meta name="description" content="In this article we will be implementing a simple HTTP webserver, we
+will using the C programming language for this so that in the process
+learn more about socket programming.">
+<meta itemprop="description" content="In this article we will be implementing a simple HTTP webserver, we
+will using the C programming language for this so that in the process
+learn more about socket programming.">
+<meta property="og:description" content="In this article we will be implementing a simple HTTP webserver, we
+will using the C programming language for this so that in the process
+learn more about socket programming.">
+<meta name="twitter:description" content="In this article we will be implementing a simple HTTP webserver, we
+will using the C programming language for this so that in the process
+learn more about socket programming.">
+
+
+<meta property="og:type" content="article">
+<meta property="article:publisher" content="">
+<meta property="og:article:published_time" content="2021-11-29T08:00:00Z">
+<meta property="article:published_time" content="2021-11-29T08:00:00Z">
+
+
+
+<meta property="og:article:author" content="Jan Pieter Bruins Slot">
+<meta property="article:author" content="Jan Pieter Bruins Slot">
+<meta name="author" content="Jan Pieter Bruins Slot">
+
+
+
+
+<meta itemprop="image" content="https://bruinsslot.jp/images/logo.svg">
+<meta property="og:image" content="https://bruinsslot.jp/images/logo.svg">
+<meta name="twitter:image" content="https://bruinsslot.jp/images/logo.svg">
+<meta name="twitter:image:src" content="https://bruinsslot.jp/images/logo.svg">
+
+
+
+
+<meta name="news_keywords" content="webserver, C">
+<meta property="article:section" content="webserver, C">
+
+
+<script defer="defer" type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Article",
+      "headline": "Making a simple HTTP webserver in C",
+      "author": {
+        "@type": "Person",
+        "name": "Jan Pieter Bruins Slot",
+        "url": " https:\/\/bruinsslot.jp\/ "
+      },
+      "datePublished": "2021-11-29",
+      "dateModified": "2021-11-29",
+      "description": "",
+      "wordCount":  8949 ,
+      "mainEntityOfPage": "True",
+      "image": {
+        "@type": "imageObject",
+        "url": " https:\/\/bruinsslot.jp\/images\/logo.svg "
+      }
+    }
+</script>
+
+
+
+<!-- base href="https://bruinsslot.jp/post/simple-http-webserver-in-c/" -->
+<link rel="canonical" href="https://bruinsslot.jp/post/simple-http-webserver-in-c/" itemprop="url">
+<meta name="url" content="https://bruinsslot.jp/post/simple-http-webserver-in-c/">
+<meta name="twitter:url" content="https://bruinsslot.jp/post/simple-http-webserver-in-c/">
+<meta property="og:url" content="https://bruinsslot.jp/post/simple-http-webserver-in-c/">
+
+<link rel="sitemap" type="application/xml" title="Sitemap" href="https://bruinsslot.jp//sitemap.xml">
+
+<link rel="icon" href="https://bruinsslot.jp//images/favicon.ico">
+<link rel="icon" href="https://bruinsslot.jp//images/favicon.svg" type="image/svg+xml">
+
+
+
+
+<link rel="stylesheet" href="REFERENCE-Making_a_simple_HTTP_webserver_in_C-bruinsslot.jp_files/app.css"><style class="darkreader darkreader--sync" media="screen"></style>
+
+
+
+<script defer="defer" data-domain="bruinsslot.jp" src="REFERENCE-Making_a_simple_HTTP_webserver_in_C-bruinsslot.jp_files/script.js"></script>
+
+<meta name="darkreader" content="54dcae426b234370acfa2d16e5285413"><style class="darkreader darkreader--override" media="screen">.vimvixen-hint {
+    background-color: #684b00 !important;
+    border-color: #9e7e00 !important;
+    color: #d7d4cf !important;
+}
+#vimvixen-console-frame {
+    color-scheme: light !important;
+}
+::placeholder {
+    opacity: 0.5 !important;
+}
+#edge-translate-panel-body,
+.MuiTypography-body1,
+.nfe-quote-text {
+    color: var(--darkreader-neutral-text) !important;
+}
+gr-main-header {
+    background-color: #1b4958 !important;
+}
+.tou-z65h9k,
+.tou-mignzq,
+.tou-1b6i2ox,
+.tou-lnqlqk {
+    background-color: var(--darkreader-neutral-background) !important;
+}
+.tou-75mvi {
+    background-color: #0f3a47 !important;
+}
+.tou-ta9e87,
+.tou-1w3fhi0,
+.tou-1b8t2us,
+.tou-py7lfi,
+.tou-1lpmd9d,
+.tou-1frrtv8,
+.tou-17ezmgn {
+    background-color: #1e2021 !important;
+}
+.tou-uknfeu {
+    background-color: #432c09 !important;
+}
+.tou-6i3zyv {
+    background-color: #245d70 !important;
+}
+div.mermaid-viewer-control-panel .btn {
+    background-color: var(--darkreader-neutral-background);
+    fill: var(--darkreader-neutral-text);
+}
+svg g rect.er {
+    fill: var(--darkreader-neutral-background) !important;
+}
+svg g rect.er.entityBox {
+    fill: var(--darkreader-neutral-background) !important;
+}
+svg g rect.er.attributeBoxOdd {
+    fill: var(--darkreader-neutral-background) !important;
+}
+svg g rect.er.attributeBoxEven {
+    fill: var(--darkreader-selection-background);
+    fill-opacity: 0.8 !important;
+}
+svg rect.er.relationshipLabelBox {
+    fill: var(--darkreader-neutral-background) !important;
+}
+svg g g.nodes rect,
+svg g g.nodes polygon {
+    fill: var(--darkreader-neutral-background) !important;
+}
+svg g rect.task {
+    fill: var(--darkreader-selection-background) !important;
+}
+svg line.messageLine0,
+svg line.messageLine1 {
+    stroke: var(--darkreader-neutral-text) !important;
+}
+div.mermaid .actor {
+    fill: var(--darkreader-neutral-background) !important;
+}
+mitid-authenticators-code-app > .code-app-container {
+    background-color: white !important;
+    padding-top: 1rem;
+}
+iframe#unpaywall[src$="unpaywall.html"] {
+    color-scheme: light !important;
+}
+embed[type="application/pdf"] { filter: invert(100%) contrast(90%); }</style><script type="text/javascript" async="" src="REFERENCE-Making_a_simple_HTTP_webserver_in_C-bruinsslot.jp_files/embed.js"></script><style type="text/css">.CtxtMenu_InfoClose {  top:.2em; right:.2em;}
+.CtxtMenu_InfoContent {  overflow:auto; text-align:left; font-size:80%;  padding:.4em .6em; border:1px inset; margin:1em 0px;  max-height:20em; max-width:30em; background-color:#EEEEEE;  white-space:normal;}
+.CtxtMenu_Info.CtxtMenu_MousePost {outline:none;}
+.CtxtMenu_Info {  position:fixed; left:50%; width:auto; text-align:center;  border:3px outset; padding:1em 2em; background-color:#DDDDDD;  color:black;  cursor:default; font-family:message-box; font-size:120%;  font-style:normal; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 15px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius:15px;               /* Safari and Chrome */  -moz-border-radius:15px;                  /* Firefox */  -khtml-border-radius:15px;                /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */  filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color="gray", Positive="true"); /* IE */}
+</style><style class="darkreader darkreader--sync" media="screen"></style><style type="text/css">.CtxtMenu_MenuClose {  position:absolute;  cursor:pointer;  display:inline-block;  border:2px solid #AAA;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  font-family: "Courier New", Courier;  font-size:24px;  color:#F0F0F0}
+.CtxtMenu_MenuClose span {  display:block; background-color:#AAA; border:1.5px solid;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  line-height:0;  padding:8px 0 6px     /* may need to be browser-specific */}
+.CtxtMenu_MenuClose:hover {  color:white!important;  border:2px solid #CCC!important}
+.CtxtMenu_MenuClose:hover span {  background-color:#CCC!important}
+.CtxtMenu_MenuClose:hover:focus {  outline:none}
+</style><style class="darkreader darkreader--sync" media="screen"></style><style type="text/css">.CtxtMenu_Menu {  position:absolute;  background-color:white;  color:black;  width:auto; padding:5px 0px;  border:1px solid #CCCCCC; margin:0; cursor:default;  font: menu; text-align:left; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 5px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius: 5px;             /* Safari and Chrome */  -moz-border-radius: 5px;                /* Firefox */  -khtml-border-radius: 5px;              /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */}
+.CtxtMenu_MenuItem {  padding: 1px 2em;  background:transparent;}
+.CtxtMenu_MenuArrow {  position:absolute; right:.5em; padding-top:.25em; color:#666666;  font-family: null; font-size: .75em}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {color:white}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {left:.5em; right:auto}
+.CtxtMenu_MenuCheck {  position:absolute; left:.7em;  font-family: null}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL { right:.7em; left:auto }
+.CtxtMenu_MenuRadioCheck {  position:absolute; left: .7em;}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {  right: .7em; left:auto}
+.CtxtMenu_MenuInputBox {  padding-left: 1em; right:.5em; color:#666666;  font-family: null;}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {  left: .1em;}
+.CtxtMenu_MenuComboBox {  left:.1em; padding-bottom:.5em;}
+.CtxtMenu_MenuSlider {  left: .1em;}
+.CtxtMenu_SliderValue {  position:absolute; right:.1em; padding-top:.25em; color:#333333;  font-size: .75em}
+.CtxtMenu_SliderBar {  outline: none; background: #d3d3d3}
+.CtxtMenu_MenuLabel {  padding: 1px 2em 3px 1.33em;  font-style:italic}
+.CtxtMenu_MenuRule {  border-top: 1px solid #DDDDDD;  margin: 4px 3px;}
+.CtxtMenu_MenuDisabled {  color:GrayText}
+.CtxtMenu_MenuActive {  background-color: #606872;  color: white;}
+.CtxtMenu_MenuDisabled:focus {  background-color: #E8E8E8}
+.CtxtMenu_MenuLabel:focus {  background-color: #E8E8E8}
+.CtxtMenu_ContextMenu:focus {  outline:none}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {  outline:none}
+.CtxtMenu_SelectionMenu {  position:relative; float:left;  border-bottom: none; -webkit-box-shadow:none; -webkit-border-radius:0px; }
+.CtxtMenu_SelectionItem {  padding-right: 1em;}
+.CtxtMenu_Selection {  right: 40%; width:50%; }
+.CtxtMenu_SelectionBox {  padding: 0em; max-height:20em; max-width: none;  background-color:#FFFFFF;}
+.CtxtMenu_SelectionDivider {  clear: both; border-top: 2px solid #000000;}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
+</style><style class="darkreader darkreader--sync" media="screen"></style><style id="MJX-SVG-styles">
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+</style><style class="darkreader darkreader--sync" media="screen"></style></head>
+
+<body>
+    <header>
+<nav>
+    <ul>
+        <li>
+            <a href="https://bruinsslot.jp/">
+                <span>bruinsslot.jp</span>
+            </a>
+        </li>
+        
+            <li>
+                <a href="https://bruinsslot.jp/post/">
+                    Posts
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://bruinsslot.jp/about/">
+                    About Me
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://bruinsslot.jp/contact/">
+                    Contact
+                </a>
+            </li>
+        
+    </ul>
+</nav>
+
+    </header>
+    <main>
+
+<article>
+    <h1>Making a simple HTTP webserver in C</h1>
+    <p>November 29, 2021 - Jan Pieter Bruins Slot</p>
+
+    
+    <h2 id="intro">Introduction</h2>
+<p>While reading, and working through <em>Operating Systems: Three Easy
+pieces</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> I started with one of the
+assignments for making a webserver concurrent. The webserver was
+graciously provided by the authors, and the authors recommend figuring
+stuff out yourself, and do some more in-depth research. So, I thought it
+would be a cool idea to implement the webserver myself, as the basis for
+making it concurrent as the assignment<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>
+asks you to do, and in the process learn more about socket programming.
+Additionally, I thought it would be a good learning experience, to
+create a post of the process, and share it.</p>
+<p>So, in this post we will go over creating a simple webserver in C,
+step-by-step. First, we’ll start with some background into webservers,
+and subsequently add more code to our program. I’ve tried to make it so
+that you’ll be able to figure out what you need to code before looking
+at the results. However, if you just want to look at a specific part or
+just at the end result, then check the <em>Implementation</em> sections
+throughout the article. You can also look at the resulting code in this
+<a href="https://github.com/erroneousboat/webserver-c">repository</a>.</p>
+<p>So, let’s get to it!</p>
+<h2 id="basics">Basics</h2>
+<p>First, it might be good idea to get a feel of what we’re trying to
+create, to investigate what it is that we actually want to make. So,
+let’s figure out what a webserver actually is, and does.</p>
+<h3 id="webserver">webserver</h3>
+<p>A webserver, and in this case on the software side is able to satisfy
+client requests over HTTP, and other several related protocols. Its
+primary function is to store, process, deliver files to that client. At
+minimum this is an HTTP Server, which is a piece of software that
+understand URLs (Universal Resource Locator) and HTTP (Hypertext
+Transfer Protocol).</p>
+<p>A webserver can be either be, or a combination of, a <em>static
+webserver</em> which simply serves files “as-is”. Or, a <em>dynamic
+webserver</em> in which the webserver runs an executable file on the
+webserver, and the output is returned to the client. It is dynamic
+because the webserver updates the hosted files before sending them to
+the client it does this “on-the-fly”.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<h3 id="http">HTTP</h3>
+<p>As mentioned above a webserver in our case should be able to
+understand the HTTP protocol. What does a protocol mean in this context?
+Well, it is a set of rules for communication between two computers. In
+this case it specifies how to transfer hyper text documents, meaning
+documents that are interconnected by hyperlinks. The protocol is textual
+and stateless. Textual because that all the commands are plain text, and
+you’ll be able to read and inspect it. Stateless, because that neither
+the client nor server remembers previous communications.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<p>It means on the client side the application (for instance a web
+browser) needs to speak the same ‘language’ as the webserver in order to
+communicate. The ‘language’ that is used is HTTP.</p>
+<p>A message is constructed that is either a request or a response from
+either the client or the server. This message needs to be transported,
+and that is where TCP comes in.</p>
+<h3 id="tcp">TCP</h3>
+<p>HTTP presumes an underlying transport layer protocol to establish
+host-to-host data transfer channels, and manage the data exchange in a
+client-to-server or peer-to-peer networking model. The protocol that is
+commonly used for HTTP server is TCP (Transmission Control Protocol),
+but it can also be adapted to be used with for instance UDP (User
+Datagram Protocol). However, because of RFC 2616<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>
+that states that the transport layer should be reliable, we will be
+using TCP instead of UDP.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p>TCP maintains communications between application processes between
+hosts (client and server), and they use port numbers to track sessions.
+HTTP, and TCP protocols are part of a suite of several multiple
+protocols on each layer of the request/response cycle. This suite is
+also known as: TCP/IP.</p>
+<h3 id="internet-protocol-suite-a.k.a.-tcpip">Internet Protocol Suite
+a.k.a. TCP/IP</h3>
+<p>HTTP is part of the <em>Internet Protocol Suite</em> and it is called
+an application layer protocol. The <em>Internet Protocol Suite</em> is a
+model that is commonly known as TCP/IP because of the foundational
+protocols that make up the <em>Internet Protocol Suite</em>. Namely, the
+<em>Transmission Control Protocol</em> (TCP, present on the transport
+layer), and <em>Internet Protocol</em> (IP, present on the internet
+layer). <a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<p>This suite is a conceptual model, and it consists out of set of
+protocols used in internet, and similar computer networks. It specifies
+how data should be packetized, addressed, transmitted, routed and
+received. The model is made up of 4 abstraction layers: the application,
+transport, internet and link layer.</p>
+<pre class="ascii nohighlight"><code>┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ APPLICATION LAYER                ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ http, ftp, smtp, ssh, etc.       │
+└──────────────────────────────────┘
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ TRANSPORT LAYER                  ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ tcp, udp, etc.                   │
+└──────────────────────────────────┘
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ INTERNET LAYER                   ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ ipv4, ipv6, etc.                 │
+└──────────────────────────────────┘
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ LINK LAYER                       ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ arp, mac (ethernet, wifi, etc.)  │
+└──────────────────────────────────┘</code></pre>
+<p>We stated above that: <em>“HTTP presumes an underlying transport
+layer”</em>. From the Internet Protocol Suite we can see that there are
+several available, and we already stated that TCP is commonly used. We
+can also see that the HTTP is in the application layer, next to other
+protocols that you might be familiar with such as FTP, Telnet, SSH,
+SMTP, etc. In essence HTTP is layered over TCP and uses it to transport
+its message data. In turn TCP is layered over IP, to make sure it ends
+up at the right location.</p>
+<p>When data to the application layer is received, by which every
+program you are using (in the case of HTTP, a browser for instance), it
+talks to the transport layer through a port. Each port can be assigned
+to a different protocol in the application layer. In the case of HTTP
+this is port 80, so that TCP knows where the data is coming from.</p>
+<h3 id="request-response">Request / Response</h3>
+<p>As mentioned above: <em>“HTTP is a set of rules for
+communication”</em>. These rules are implemented in the request and
+response messages. You’re probably already familiar with its structure.
+The request message consist out of the following: a request line, the
+request header fields, an empty line, and an optional message body. In
+the following diagram you can see how a request and response message is
+built up when we access the webserver we are going to create using
+curl.</p>
+<pre class="ascii nohighlight"><code>                                                                        
+            ┌─┐                                        ┌─┐              
+            └┬┘              ―――――――――――――▶            ╞ │              
+            ▔▔▔              ◀―――――――――――――            └─┘              
+    client request message                    server response message   
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┓              ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ GET / HTTP/1.1            ┃ request line ┃ HTTP/1.0 200 OK           ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━┩              ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Host: localhost:8080      │    headers   │ Server: webserver-c       │
+│ User-Agent: curl/7.52.1   │              │ Content-type: text/html   │
+│ Accept: */*               │              │                           │
+└───────────────────────────┘              ├───────────────────────────┤
+                                  body     │ &lt;html&gt;hello, world&lt;/html&gt; │
+                                           └───────────────────────────┘</code></pre>
+<p>We can even inspect what curl is sending and receiving, and we can
+see that everything is just in plain text. Pretty cool!</p>
+<pre class="text"><code class="hljs language-plaintext">$ curl -vs http://localhost:8080
+
+* Rebuilt URL to: http://localhost:8080/
+*   Trying ::1...
+* TCP_NODELAY set
+* connect to ::1 port 8080 failed: Connection refused
+*   Trying 127.0.0.1...
+* TCP_NODELAY set
+* Connected to localhost (127.0.0.1) port 8080 (#0)
+&gt; GET / HTTP/1.1
+&gt; Host: localhost:8080
+&gt; User-Agent: curl/7.52.1
+&gt; Accept: */*
+&gt;
+* HTTP 1.0, assume close after body
+&lt; HTTP/1.0 200 OK
+&lt; Server: webserver-c
+&lt; Content-type: text/html
+&lt;
+&lt;html&gt;hello, world&lt;/html&gt;
+* Curl_http_done: called premature == 0
+* Closing connection 0</code></pre>
+<p>When a request is made by the application layer, the message passes
+through the layers on one side, and back up through layer on the other
+side (represented by the solid line). Logically, one layer talks to the
+corresponding layer at the other side (represented by the dashed
+line).</p>
+<pre class="ascii nohighlight"><code>                                         
+      ┌─┐                       ┌─┐      
+      └┬┘                       ╞ │      
+      ▔▔▔                       └─┘      
+     client                    server    
+┏━━━━━━━━━━━━━┓╷╷       ╭╮┏━━━━━━━━━━━━━┓
+┃ APPLICATION ┃││ ◀---▶ ││┃ APPLICATION ┃
+┗━━━━━━━━━━━━━┛││       ││┗━━━━━━━━━━━━━┛
+┏━━━━━━━━━━━━━┓│▲       ▼│┏━━━━━━━━━━━━━┓
+┃ TRANSPORT   ┃││ ◀---▶ ││┃ TRANSPORT   ┃
+┗━━━━━━━━━━━━━┛││       ││┗━━━━━━━━━━━━━┛
+┏━━━━━━━━━━━━━┓││       ││┏━━━━━━━━━━━━━┓
+┃ INTERNET    ┃││ ◀---▶ ││┃ INTERNET    ┃
+┗━━━━━━━━━━━━━┛▼│       │▲┗━━━━━━━━━━━━━┛
+┏━━━━━━━━━━━━━┓││       ││┏━━━━━━━━━━━━━┓
+┃ LINK        ┃││ ◀---▶ ││┃ LINK        ┃
+┗━━━━━━━━━━━━━┛│╰───────╯│┗━━━━━━━━━━━━━┛
+               ╰─────────╯               </code></pre>
+<p>So, to recap: we’re creating an application (a webserver) that is
+able to receive/send plain text messages that adhere to rules of HTTP.
+Those messages are received through a transport layer. Our application
+will use TCP as this transport layer, and we need to implement that
+transport layer of HTTP. Both of these protocols are part of the
+<em>Internet Protocol Suite</em> (TCP/IP) and is provided by the
+operating system.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p>
+<h3 id="implementation">Implementation</h3>
+<p>We can use the man pages to reference on how to start implementing
+this. Throughout this article we will be using man pages to get all the
+information we need to implement our webserver. The first man page we
+can look at is:</p>
+<pre class="text"><code class="hljs language-plaintext">$ man 7 tcp
+
+NAME
+       tcp - TCP protocol
+
+SYNOPSIS
+       #include &lt;sys/socket.h&gt;
+       #include &lt;netinet/in.h&gt;
+       #include &lt;netinet/tcp.h&gt;
+
+       tcp_socket = socket(AF_INET, SOCK_STREAM, 0);
+
+DESCRIPTION
+
+       ...
+
+       A newly created TCP socket has no remote or local address and is
+       not fully specified. To create an outgoing TCP connection use
+       connect(2) to establish a connection to another TCP socket. To
+       receive new incoming connections, first bind(2) the socket to a
+       local address and port and then call listen(2) to put the socket
+       into the listening state. After that a new socket for each
+       incoming connection can be accepted using accept(2). A socket
+       which has had accept(2) or connect(2) successfully called on it
+       is fully specified and may transmit data. Data cannot be
+       transmitted on listening or not yet connected sockets.  
+
+       ...</code></pre>
+<hr>
+<p><strong>NOTE:</strong> the <code>7</code> stands for the section
+number the page is from, and you can check what section it is by typing
+<code>man man</code>. Typically, man pages referred to using the
+notation <code>name(section)</code>, since the same name can be present
+in different sections. Throughout this document we will use this
+notation so that you’ll be able to inspect the man pages. If you’re
+trying to find a specific man page, you can use the
+<code>apropos {name}</code> command to find name usage through the man
+pages.</p>
+<hr>
+<p>From this man page we can read that we need to implement a ‘socket’
+on which we can ‘listen’ for incoming connections, then we need to
+‘bind’ the socket to a local address, and port. Then put the socket in a
+‘listen’ state. After that we’re able to ‘accept’ incoming connections,
+for each accepted connection a new socket will be created, and we will
+be able to read and write to this socket. The following diagram gives a
+bit of an overview of what we need to implement.</p>
+<pre class="ascii nohighlight"><code>                                                                                    
+┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━━━┓
+┃   SOCKET   ┃ ▶ ┃    BIND    ┃ ▶ ┃   LISTEN   ┃ ▶ ┃   ACCEPT   ┃ ▶ ┃  READ/WRITE  ┃
+┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━━━┛</code></pre>
+<p>The <code>tcp(7)</code> man page also states, as we’ve uncovered from
+above, that it is layered upon <code>ip(7)</code>, so let’s also take a
+look at the man page for that.</p>
+<pre class="text"><code class="hljs language-plaintext">$ man 7 ip
+
+NAME
+       ip - Linux IPv4 protocol implementation
+
+SYNOPSIS
+       #include &lt;sys/socket.h&gt;
+       #include &lt;netinet/in.h&gt;
+       #include &lt;netinet/ip.h&gt; /* superset of previous */
+
+       tcp_socket = socket(AF_INET, SOCK_STREAM, 0);
+       udp_socket = socket(AF_INET, SOCK_DGRAM, 0);
+       raw_socket = socket(AF_INET, SOCK_RAW, protocol);</code></pre>
+<p>Ok, cool! This gives us some more information on how to create
+sockets using other protocols, like udp, and raw. We’ll keep that in
+mind for further on in this article. But first let’s start with setting
+up our project.</p>
+<h2 id="setting_up">Setting up</h2>
+<p>First, let’s start with setting up our environment in which we want
+to develop. We will start very simple, just to make sure everything is
+working:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp hljs language-cpp"><span class="hljs-comment">// ./steps/step000.c</span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"hello, world\n"</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<p>Next we need to compile it, and we will be using
+<code>gcc</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash hljs language-bash">$ gcc -Wall webserver.c -o webserver</code></pre></div>
+<p>Let’s check if every worked.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash hljs language-bash">$ ./webserver
+hello, world</code></pre></div>
+<p>Ok, now that we’re set up. Lets get started with implementing our
+socket.</p>
+<h2 id="implement_socket">Implement the socket</h2>
+<p>From what we’ve read from the man page <code>tcp(7)</code>, we need
+to implement a tcp socket. But, let’s also inspect what a socket is, and
+we can also use the man pages for this.</p>
+<pre class="text"><code class="hljs language-plaintext">$ man socket
+
+NAME
+       socket - create an endpoint for communication
+
+SYNOPSIS
+       #include &lt;sys/types.h&gt;          /* See NOTES */
+       #include &lt;sys/socket.h&gt;
+
+       int socket(int domain, int type, int protocol);
+
+DESCRIPTION
+       socket() creates an endpoint for communication and returns a file
+       descriptor that refers to that endpoint. The file descriptor returned by
+       a successful call will be the lowest-numbered file descriptor not
+       currently open for the process.
+       ...</code></pre>
+<p>So, a socket creates an endpoint for communication. Furthermore, we
+can read that we need to include the <code>&lt;sys/socket.h&gt;</code>
+header file, and that we can create a socket endpoint to communicate by
+using the function: <code>socket(2)</code>. This function returns a file
+descriptor which is an integer. The arguments that it accepts are:
+<code>domain</code>, <code>type</code>, <code>protocol</code>. We will
+look at the individual arguments and investigate how they need to be set
+in the following sections.</p>
+<h3 id="domain">domain</h3>
+<p>The argument <code>domain</code> is an integer that specifies a
+communication domain, and it selects the protocol family that which will
+be used for communication. These families are defined in
+<code>&lt;sys/socket.h&gt;</code> these families are defined as
+constants in the header file, and we can reference them by their name
+and use them as the domain argument.</p>
+<p>See the man page for an overview of what kind formats you’re able to
+choose. Since we’re creating a webserver that uses TCP we will be using
+<code>AF_INET</code>, which uses the IPv4 Internet protocols.</p>
+<hr>
+<p><strong>NOTE</strong>: Now, I wanted to know how this header file
+looked like, and I was able to inspect it further by installing the
+POSIX man page. These are described as: “Manual pages about using a
+POSIX system for development”. And will give more information about the
+specification of a C standard library for POSIX systems. It’s a
+specification for a number of routines that should be available in a
+basic C standard library, and it depends on how this standard C library
+is implemented on a system. The most commonly used implementation on
+Linux is the GNU C Library: <a href="http://www.gnu.org/software/libc/"><code>glibc</code></a>. With
+these manpages we can thus reference the specification.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>
+You can also find these pages on the following site: <a href="https://pubs.opengroup.org/onlinepubs/9699919799/idx/head.html">The
+Open Group</a>.</p>
+<p>How I installed the posix man pages on a debian based distro of
+linux:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash hljs language-bash">$ sudo apt install manpages-posix-dev</code></pre></div>
+<p>And was able to reference the man page for
+<code>&lt;sys/socket.h&gt;</code> with the following command:</p>
+<pre class="text"><code class="hljs language-plaintext">$ man sys_socket.h</code></pre>
+<hr>
+<h3 id="type">type</h3>
+<p>The argument <code>type</code> specifies the ‘communication
+semantics’. So, which socket type do we need to use here? Well, we said
+we wanted to create a TCP webserver, so which of the options resembles
+that? Let’s refer back to man pages of <code>tcp(7)</code>, and
+<code>ip(7)</code>. There we can see that the valid socket type for a
+TCP socket is <code>SOCK_STREAM</code>. <code>SOCK_STREAM</code> is a
+full-duplex byte stream, and it is characterized as a type that ensures
+that data is not lost or duplicated.</p>
+<h3 id="protocol">protocol</h3>
+<p><code>protocol</code>, according to the man page, is the particular
+protocol to be used with the socket. It is common that there exists only
+one protocol that will support a specific socket type. In our case where
+we are choosing <code>SOCK_STREAM</code> as the <code>type</code>, and
+as stated by the <code>man 7 ip</code> man page, <code>protocol</code>
+is the IP protocol in the IP header to be received or sent. And in this
+case of creating a TCP socket were the valid value is <code>0</code> for
+TCP sockets.</p>
+<h3 id="return-value">return value</h3>
+<p>The <code>int socket(int domain, int type, int protocol)</code>
+function returns an integer which is an file descriptor for the
+socket.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> The file descriptor is an unique
+number that identifies an open file, in this case this is our socket and
+just as a regular file we will be able to read and write to it. When an
+error occurred it will return the value <code>-1</code>, it will also
+set an <code>errno</code> which we can use to properly handle
+errors.</p>
+<h3 id="errno">errno</h3>
+<p>From the last section the return value of the <code>socket</code>
+function the <code>errno</code> will be set. So what is this
+<code>errno</code>? Let’s check if there is a man page about it.</p>
+<pre class="text"><code class="hljs language-plaintext">$ man errno
+
+NAME
+       errno - number of last error
+
+SYNOPSIS
+       #include &lt;errno.h&gt;
+
+DESCRIPTION
+       The &lt;errno.h&gt; header file defines the integer variable errno, which is
+       set by system calls and some library functions in the event of an error
+       to indicate what went wrong.</code></pre>
+<p><code>errno</code> is an integer variable that can be set to signify
+what exactly has gone wrong. And in order to inspect what kind of error
+was raised, we can use <code>perror(3)</code> to print the error, it
+will translate the error code that has been set in the variable
+<code>errno</code> to a human-readable form. Lets check the man page for
+<code>perror(3)</code>.</p>
+<pre class="text"><code class="hljs language-plaintext">$ man 3 perror
+
+NAME
+       perror - print a system error message
+
+SYNOPSIS
+       #include &lt;stdio.h&gt;
+
+       void perror(const char *s);
+
+DESCRIPTION
+       The perror() function produces a message on standard error describing
+       the last error encountered during a call to a system or library
+       function.
+       ...</code></pre>
+<p>We can use <code>perror(3)</code> and set the argument <code>s</code>
+with a string, and it then will be appended with an error message that
+corresponds with the current value of <code>errno</code>.</p>
+<h3 id="implementation-1">Implementation</h3>
+<p>Now that we know how we should implement the <code>socket(2)</code>
+function, let’s update our file with what we have discussed above. It
+should resemble something like this:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode cpp"><code class="sourceCode cpp hljs language-cpp"><span class="hljs-comment">// ./steps/step001.c</span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// Create a socket</span>
+    <span class="hljs-type">int</span> sockfd = <span class="hljs-built_in">socket</span>(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">if</span> (sockfd == <span class="hljs-number">-1</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (socket)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"socket created successfully\n"</span>);
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<p>Now when we check our diagram from the section <a href="#basics">Basics</a> we’ve now created the socket, but we need to
+bind it to an address otherwise no communication can be sent or received
+to this socket as we have read from the man page
+<code>tcp(7)</code>.</p>
+<pre class="ascii nohighlight"><code>                                                                                  
+┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓
+┃   SOCKET   ┃ ▶ ┃    BIND    ┃ ▶ ┃   LISTEN   ┃ ▶ ┃   ACCEPT   ┃ ▶ ┃ READ/WRITE ┃
+┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛
+ ───────────▶                                                                     </code></pre>
+<p>So our next step will be to <em>bind</em> the socket to a local
+address and port.</p>
+<h2 id="bind_socket">Bind the socket to an address</h2>
+<p>The socket is created and exists in a namespace (an address family,
+the <code>AF</code> in <code>AF_INET</code> stands for address family),
+and we need to bind the socket to a local address, in order for the
+socket to receive connections. We need to be using the
+<code>bind(2)</code> function for this, so let’s check out the
+<code>bind(2)</code> man pages on how we need to implement this.</p>
+<pre class="text"><code class="hljs language-plaintext">$ man bind
+
+NAME
+       bind - bind a name to a socket
+
+SYNOPSIS
+       #include &lt;sys/types.h&gt;          /* See NOTES */
+       #include &lt;sys/socket.h&gt;
+
+       int bind(int sockfd, const struct sockaddr *addr,
+                socklen_t addrlen);
+
+DESCRIPTION                                                              
+       When a socket is created with socket(2), it exists in a name space
+       (address family) but has no address assigned to it. bind() assigns the
+       address specified by addr to the socket referred to by the file
+       descriptor sockfd. addrlen specifies the size, in bytes, of the address
+       structure pointed to by addr. Traditionally, this operation is called
+       “assigning a name to a socket”.
+    
+       It is normally necessary to assign a local address using bind() before
+       a SOCK_STREAM socket may receive connections (see accept(2)).
+
+       ...</code></pre>
+<p>We can see that <code>bind(2)</code> is included in the header file,
+<code>&lt;sys/socket.h&gt;</code>. And, on success it will return zero.
+It accepts as arguments: <code>sockfd</code>, <code>*addr</code>, and
+<code>addrln</code>. Let’s go over the arguments, and make sense of what
+we need to do in order to implement it.</p>
+<h3 id="sockfd">sockfd</h3>
+<p>This is the file descriptor that we’ve created with
+<code>socket(2)</code> in the last section. And we need to use that here
+as the first argument.</p>
+<h3 id="addr">addr</h3>
+<p>This defines the address structure to which we want to bind the
+socket to, and it depends on the address family we’re using. So let’s
+check what <code>addr</code> needs to look like. We can inspect the
+rules used in the name binding, by referencing the man page of the
+communication domain we’re using: <code>AF_INET</code>.</p>
+<pre class="text"><code class="hljs language-plaintext">$ man 7 ip</code></pre>
+<p>From the section ‘Address format’ we can see an example. The address
+structure will look like the following:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode cpp"><code class="sourceCode cpp hljs language-cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> {
+   <span class="hljs-type">sa_family_t</span>    sin_family; <span class="hljs-comment">/* address family: AF_INET */</span>
+   <span class="hljs-type">in_port_t</span>      sin_port;   <span class="hljs-comment">/* port in network byte order */</span>
+   <span class="hljs-keyword">struct</span> <span class="hljs-title class_">in_addr</span> sin_addr;   <span class="hljs-comment">/* internet address */</span>
+};
+
+<span class="hljs-comment">/* Internet address. */</span>
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">in_addr</span> {
+   <span class="hljs-type">uint32_t</span>       s_addr;     <span class="hljs-comment">/* address in network byte order */</span>
+};</code></pre></div>
+<p><code>sin_family</code> is always set to <code>AF_INET</code>,
+<code>sin_port</code> contains the port in network byte order. Network
+byte order represents how bytes are arranged when sending data over a
+network, an order must be chosen to make sure that on both ends, the
+machines interpret the numbers the same way independent of the cpu
+architecture.</p>
+<p>For example an integer value of 1 represented as 4 bytes would be
+represented on ‘big endian’ machines as <code>0 0 0 1</code>, on a
+‘little endian’ machines this would be <code>1 0 0 0</code>. The value
+of <code>0 0 0 1</code> of the ‘big endian’ machine would then be
+interpreted by the ‘little endian’ machine as the value
+<code>16777216</code>, and vice versa.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a><a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></p>
+<p>And, as such, like the man page states, we need to call
+<code>htons(3)</code> on the number that is assigned to the port. Like
+so: <code>htons(8080)</code>. It will convert the host byte order to
+network byte order. See the man page at for <code>htons(3)</code> for
+more information.</p>
+<p><code>sin_addr</code> contains the host interface address in network
+byte order, and it is a member of the <code>struct</code> named
+<code>in_addr</code>. The man page states that it should be one of the
+<code>INADDR_*</code> values. These are defined as symbolic constants in
+the header file <code>&lt;netinet/in.h&gt;</code>, or can set it by
+using one of the <code>inet_aton(3)</code>, <code>inet_addr(3)</code>,
+or <code>inet_makeaddr(3)</code> library functions, to specify a
+specific address. We can also inspect the POSIX man page to see how the
+header file should be implemented on systems:
+<code>man netinet_in.h</code>.</p>
+<p>We will make use of the symbolic constant <code>INADDR_ANY</code>,
+and it means ‘any address’, which translates to the
+<code>0.0.0.0</code>. <code>INADDRY_ANY</code> is already in network
+byte order, so we don’t really have to convert it. The man page advices
+us to convert, so lets just implement it. We do this by calling
+<code>htonl(3)</code> on the address. But why are we using
+<code>0.0.0.0</code>, here? This is just your machine’s IP address. Your
+machine will have one IP address for each network interface. When your
+machine has for example Wi-Fi, and an ethernet connection, then that
+machine will have two addresses, one for each interface. When we don’t
+care what interface is going to be used we use the special address for
+this, <code>0.0.0.0</code> which is defined in the symbolic constant
+<code>INADDR_ANY</code> translates to this address.</p>
+<h3 id="addrlen">addrlen</h3>
+<p>The <code>addrlen</code> argument specifies the size of the address
+structure <code>addr</code> in bytes. To get this we can use the
+<code>sizeof()</code> operator (it looks like a function, but it is an
+operator like <code>&amp;&amp;</code>, <code>||</code>, etc.). The
+argument is of type <code>socklen_t</code> which is an integer type, and
+we can get some background on specific type by inspecting the man page
+of <code>accept(2)</code>.</p>
+<pre class="text"><code class="hljs language-plaintext">In the original BSD sockets implementation (and on other older systems)
+the third argument of accept() was declared as an int *. A POSIX.1g
+draft standard wanted to change it into a size_t *C; later POSIX
+standards and glibc 2.x have socklen_t *.</code></pre>
+<h3 id="return-value-1">return value</h3>
+<p>On success the return value for <code>bind(2)</code> will be zero,
+when an error occurred it will return <code>-1</code>, and
+<code>errno</code> will also be set.</p>
+<h3 id="implementation-2">Implementation</h3>
+<p>From what we have seen we’re able to implement the
+<code>bind(2)</code> function. First, we will create the address
+structure, and then we can bind it to the socket. The updated code will
+look something like this:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode cpp"><code class="sourceCode cpp hljs language-cpp"><span class="hljs-comment">// ./steps/step002.c</span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> PORT 8080</span>
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// Create a socket</span>
+    <span class="hljs-type">int</span> sockfd = <span class="hljs-built_in">socket</span>(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">if</span> (sockfd == <span class="hljs-number">-1</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (socket)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"socket created successfully\n"</span>);
+
+    <span class="hljs-comment">// Create the address to bind the socket to</span>
+    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> host_addr;
+    <span class="hljs-type">int</span> host_addrlen = <span class="hljs-built_in">sizeof</span>(host_addr);
+
+    host_addr.sin_family = AF_INET;
+    host_addr.sin_port = <span class="hljs-built_in">htons</span>(PORT);
+    host_addr.sin_addr.s_addr = <span class="hljs-built_in">htonl</span>(INADDR_ANY);
+
+    <span class="hljs-comment">// Bind the socket to the address</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">bind</span>(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;host_addr, host_addrlen) != <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (bind)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"socket successfully bound to address\n"</span>);
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<p>Note that we are typecasting <code>addr</code> to the
+<code>struct</code> pointer <code>struct sockaddr *</code> in the
+argument of the <code>bind(2)</code> function. Since <code>addr</code>
+is of the type <code>struct sockaddr_in</code> we need to cast it to
+<code>struct sockaddr *</code>. From the man page <code>bind(2)</code>
+we can read: “The only purpose of this structure (<code>sockaddr</code>)
+is to cast the structure pointer passed in <code>addr</code> in order to
+avoid compiler warnings.” In essence what we are doing here is: whatever
+<code>addr</code> is pointing to, act like a <code>sockaddr</code>.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a></p>
+<pre class="ascii nohighlight"><code>                                                                                  
+┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓
+┃   SOCKET   ┃ ▶ ┃    BIND    ┃ ▶ ┃   LISTEN   ┃ ▶ ┃   ACCEPT   ┃ ▶ ┃ READ/WRITE ┃
+┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛
+ ───────────▶     ───────────▶                                                    </code></pre>
+<p>Referring back to our diagram, we’ve now also bound the socket to a
+specific address. Now we can are ready to listen for incoming
+connections. So lets implement that.</p>
+<h2 id="listen">Listen</h2>
+<p>We’ve created a socket and bounded it to a local address, now we need
+to make sure that the socket is listening for incoming connection. We do
+that by using <code>listen(2)</code> function. This will make the socket
+available for incoming connections. Let’s see what the man pages can
+show us on how to use <code>listen(2)</code>.</p>
+<pre class="text"><code class="hljs language-plaintext">$ man 2 listen
+
+NAME
+       listen - listen for connections on a socket
+
+SYNOPSIS
+       #include &lt;sys/types.h&gt;          /* See NOTES */
+       #include &lt;sys/socket.h&gt;
+
+       int listen(int sockfd, int backlog);
+
+DESCRIPTION
+       listen() marks the socket referred to by sockfd as a passive socket,
+       that is, as a socket that will be used to accept incoming connection
+       requests using accept(2).
+       ...</code></pre>
+<p>As we can see, the <code>listen(2)</code> function will put the
+socket into ‘passive’ mode. Stream sockets are often ‘active’ or
+‘passive’.</p>
+<ul>
+<li><p>When a socket is created with the <code>socket(2)</code>
+function, it is set to <em>active</em>. This socket can then be used in
+the <code>connect(2)</code> function to establish a connection to a
+‘passive’ socket.</p></li>
+<li><p>A <em>passive</em> socket can allow incoming connections by
+passing it to the <code>listen(2)</code> function.</p></li>
+</ul>
+<p>In most applications that use stream sockets, the servers we will
+perform the so called ‘passive socket open’, and on the client an
+‘active socket open’. Since we’re creating a http webserver, and using
+the <code>listen(2)</code> function in order to listen for incoming
+connections, the socket that we’ve created will be a passive socket, and
+will be used to accept connect connections from other (active) sockets.
+<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a></p>
+<h3 id="sockfd-1">sockfd</h3>
+<p>Again, this is the file descriptor of the socket, and thus we will
+use the <code>sockfd</code> that we’ve created in section 3.</p>
+<h3 id="backlog">backlog</h3>
+<p>This integer will define how many pending connections will be queued
+up for <code>sockfd</code> socket, before it will be refused. For now,
+we will set this to <code>128</code>. Further connection requests block
+until a pending connection is accepted. So, it defines the number of
+connections that are accepted, but not yet handled by the application,
+until <code>accept(2)</code> gets it off the queue.</p>
+<p>From <code>listen(2)</code> the ‘NOTES’ section:</p>
+<pre class="text"><code class="hljs language-plaintext">...
+
+The behavior of the backlog argument on TCP sockets changed with Linux 2.2. Now
+it specifies the queue length for completely established sockets waiting to be
+accepted, instead of the number of incomplete connection requests. The maximum
+length of the queue for incomplete sockets can be set using
+/proc/sys/net/ipv4/tcp_max_syn_backlog. When syncookies are enabled there is no
+logical maximum length and this setting is ignored. See tcp(7) for more
+information.
+
+If the backlog argument is greater than the value in
+/proc/sys/net/core/somaxconn, then it is silently truncated to that value;
+the default value in this file is 128. In kernels before 2.4.25, this limit was
+a hard coded value, SOMAXCONN, with the value 128.
+
+...</code></pre>
+<p>The symbolic constant <code>SOMAXCONN</code> in
+<code>&lt;sys/socket.h&gt;</code> is defined by our system
+(<code>128</code> in the case of Linux), and we can use it to set the
+<code>backlog</code> argument (<code>man sys_socket.h</code>).</p>
+<h3 id="return-value-2">return value</h3>
+<p>On success, zero will be returned, on failure <code>-1</code> will be
+returned, and as before <code>errno</code> will also set, so we can
+check and handle it accordingly.</p>
+<h3 id="implementation-3">Implementation</h3>
+<p>With the above information we are able to implement the
+<code>listen(2)</code> function, so let’s update our code:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode cpp"><code class="sourceCode cpp hljs language-cpp"><span class="hljs-comment">// ./steps/step003.c</span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> PORT 8080</span>
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// Create a socket</span>
+    <span class="hljs-type">int</span> sockfd = <span class="hljs-built_in">socket</span>(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">if</span> (sockfd == <span class="hljs-number">-1</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (socket)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"socket created successfully\n"</span>);
+
+    <span class="hljs-comment">// Create the address to bind the socket to</span>
+    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> host_addr;
+    <span class="hljs-type">int</span> host_addrlen = <span class="hljs-built_in">sizeof</span>(host_addr);
+
+    host_addr.sin_family = AF_INET;
+    host_addr.sin_port = <span class="hljs-built_in">htons</span>(PORT);
+    host_addr.sin_addr.s_addr = <span class="hljs-built_in">htonl</span>(INADDR_ANY);
+
+    <span class="hljs-comment">// Bind the socket to the address</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">bind</span>(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;host_addr, host_addrlen) != <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (bind)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"socket successfully bound to address\n"</span>);
+
+    <span class="hljs-comment">// Listen for incoming connections</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">listen</span>(sockfd, SOMAXCONN) != <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (listen)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"server listening for connections\n"</span>);
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<p>Referring back to our diagram, we’ve created a socket, bound it to a
+local address, and we’ve put the socket into ‘passive’ mode. Now we can
+listen for incoming connections.</p>
+<pre class="ascii nohighlight"><code>                                                                                  
+┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓
+┃   SOCKET   ┃ ▶ ┃    BIND    ┃ ▶ ┃   LISTEN   ┃ ▶ ┃   ACCEPT   ┃ ▶ ┃ READ/WRITE ┃
+┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛
+ ───────────▶     ───────────▶     ───────────▶                                   </code></pre>
+<p>So, on to accept those connections.</p>
+<h2 id="accept">Accept</h2>
+<p>Now we’re ready to make sure the socket will accept connections. We
+need to use the <code>accept(2)</code> function, and let’s check the man
+pages again on how we need to implement this.</p>
+<pre class="text"><code class="hljs language-plaintext">$ man 2 accept
+
+NAME
+       accept, accept4 - accept a connection on a socket
+
+SYNOPSIS
+       #include &lt;sys/types.h&gt;          /* See NOTES */
+       #include &lt;sys/socket.h&gt;
+
+       int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+
+DESCRIPTION
+       The accept() system call is used with connection-based socket types
+       (SOCK_STREAM, SOCK_SEQ‐ PACKET). It extracts the first connection
+       request on the queue of pending connections for the listening socket,
+       sockfd, creates a new connected socket, and returns a new file
+       descriptor referring to that socket. The newly created socket is not in
+       the listening state. The original socket sockfd is unaffected by this
+       call.
+       ...</code></pre>
+<p>So the <code>accept(2)</code> function will get the first connection
+from the queue of the listening socket <code>sockfd</code>. Then it will
+create a <em>new</em> connected socket, and the file descriptor that
+points to that socket will be returned. The newly created socket is
+however <em>not in a listening state</em>, and thus the original socket
+is not affected by this call and can be used to accept other
+connections. When there are no pending connections when the
+<code>accept(2)</code> function is called, the call blocks until a new
+connection arrives.</p>
+<p>Again, let’s look at the arguments that we need to provide to accept
+connections.</p>
+<h3 id="sockfd-2">sockfd</h3>
+<p>Like before, we will use the original socket that was created in <a href="#implement_socket">Implement the socket</a> and here
+<code>sockfd</code> is the file descriptor of the socket.</p>
+<h3 id="addr-1">addr</h3>
+<p>The argument <code>addr</code> is a pointer that refers to a
+<code>sockaddr</code> struct, this needs to be the address of the
+original socket that we’ve created, and we need the pointer to that
+struct here.</p>
+<h3 id="addrlen-1">addrlen</h3>
+<p>The <code>addrlen</code> is a value result argument, it points to the
+size of the buffer pointed to by the argument <code>addr</code>. Because
+<code>accept()</code> can accept multiple protocol families we need to
+provide the size of the address that we are using. A pointer is used
+because: “the caller must initialize it to contain the size (in bytes)
+of the structure pointed to by <code>addr</code>; on return it will
+contain the actual size of the peer address.” The kernel then knows how
+much space is available to return the socket address. Upon return from
+the <code>accept(2)</code> function, the value of <code>addrlen</code>
+is set to indicate the number of bytes of data actually stored by the
+kernel in the socket address structure. <a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a></p>
+<p>When binding our socket (<a href="#bind_socket">Bind the socket to an
+address</a>), we’ve already created our <code>addrlen</code> variable
+with the size of the <code>sockaddr</code> struct, so we can just pass
+it to the <code>accept(2)</code> function. However, the original
+variable was an <code>int</code>, so we need to typecast it to
+<code>socklen_t *</code> to make it work.</p>
+<h3 id="return-value-3">return value</h3>
+<p>It will return a non-negative integer that is a file descriptor for
+the accepted socket. On error, it will return <code>-1</code>, and
+<code>errno</code> will be set.</p>
+<h3 id="implementation-4">Implementation</h3>
+<p>Because we want to continue accepting new connections we will put the
+<code>accept(2)</code> function in a continuous loop. Important to note
+is that we also need to close the file descriptor we’ve created by using
+<code>accept(2)</code>. We can close the socket by calling the
+<code>close(2)</code> function.</p>
+<pre class="text"><code class="hljs language-plaintext">$ man 2 close
+
+NAME
+       close - close a file descriptor
+
+SYNOPSIS
+       #include &lt;unistd.h&gt;
+
+       int close(int fd);
+
+DESCRIPTION
+       close() closes a file descriptor, so that it no longer refers to any
+       file and may be reused. Any record locks (see fcntl(2)) held on the file
+       it was associated with, and owned by the process, are removed
+       (regardless of the file descriptor that was used to obtain the lock).
+       ... </code></pre>
+<p>When we’re done with the socket we can just use it as the argument
+<code>fd</code> in the function <code>close(2)</code> this will close
+the file descriptor, so that it no longer refers to any file and may be
+reused. When we update our code and implement the <code>accept(2)</code>
+function it should resemble the following:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode cpp"><code class="sourceCode cpp hljs language-cpp"><span class="hljs-comment">// ./steps/step004.c</span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> PORT 8080</span>
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// Create a socket</span>
+    <span class="hljs-type">int</span> sockfd = <span class="hljs-built_in">socket</span>(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">if</span> (sockfd == <span class="hljs-number">-1</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (socket)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"socket created successfully\n"</span>);
+
+    <span class="hljs-comment">// Create the address to bind the socket to</span>
+    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> host_addr;
+    <span class="hljs-type">int</span> host_addrlen = <span class="hljs-built_in">sizeof</span>(host_addr);
+
+    host_addr.sin_family = AF_INET;
+    host_addr.sin_port = <span class="hljs-built_in">htons</span>(PORT);
+    host_addr.sin_addr.s_addr = <span class="hljs-built_in">htonl</span>(INADDR_ANY);
+
+    <span class="hljs-comment">// Bind the socket to the address</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">bind</span>(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;host_addr, host_addrlen) != <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (bind)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"socket successfully bound to address\n"</span>);
+
+    <span class="hljs-comment">// Listen for incoming connections</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">listen</span>(sockfd, SOMAXCONN) != <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (listen)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"server listening for connections\n"</span>);
+
+    <span class="hljs-keyword">for</span> (;;) {
+        <span class="hljs-comment">// Accept incoming connections</span>
+        <span class="hljs-type">int</span> newsockfd = <span class="hljs-built_in">accept</span>(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;host_addr,
+                               (<span class="hljs-type">socklen_t</span> *)&amp;host_addrlen);
+        <span class="hljs-keyword">if</span> (newsockfd &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (accept)"</span>);
+            <span class="hljs-keyword">continue</span>;
+        }
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"connection accepted\n"</span>);
+
+        <span class="hljs-built_in">close</span>(newsockfd);
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<p>And when we check our diagram again, we can that we’ve implemented
+the <code>accept(2)</code> function.</p>
+<pre class="ascii nohighlight"><code>                                                                                  
+┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓
+┃   SOCKET   ┃ ▶ ┃    BIND    ┃ ▶ ┃   LISTEN   ┃ ▶ ┃   ACCEPT   ┃ ▶ ┃ READ/WRITE ┃
+┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛
+ ───────────▶     ───────────▶     ───────────▶     ───────────▶                  </code></pre>
+<p>Now, and we’re now ready to starting reading and writing to the
+socket.</p>
+<h2 id="read">Read</h2>
+<p>If we recall back from man page of <code>socket(2)</code> we read the
+following:</p>
+<pre class="text"><code class="hljs language-plaintext">...
+
+A connection to another socket is created with a connect(2) call. Once
+connected, data may be transferred using read(2) and write(2) calls or some
+variant of  the send(2) and recv(2) calls.  When a session has been completed
+a close(2) may be performed.
+
+...</code></pre>
+<p>We can read and write by using the <code>read(2)</code> and
+<code>write(2)</code> functions, or some variant of <code>send(2)</code>
+and <code>recv(2)</code> calls. From the man page of
+<code>send(2)</code> we can read that <code>send(2)</code> provides
+extra flags that we might use. In this case we won’t be using those, and
+as such we can stick with <code>read(2)</code> and
+<code>write(2)</code>. <a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a></p>
+<p>Because we’ve setup a connection between the client and the server we
+can read the request of the client. Since, we got a file descriptor with
+the <code>accept(2)</code> function, we will be able to use the
+<code>read(2)</code> function to read the data that has been sent by the
+client. Let’s check the man pages on how we’re able to use the
+<code>read(2)</code> function.</p>
+<pre class="text"><code class="hljs language-plaintext">$ man 2 read
+
+NAME
+       read - read from a file descriptor
+
+SYNOPSIS
+       #include &lt;unistd.h&gt;
+
+       ssize_t read(int fd, void *buf, size_t count);
+
+DESCRIPTION:
+       read() attempts to read up to count bytes from file descriptor fd into
+       the buffer starting at buf.
+       ...</code></pre>
+<p>The function <code>read(2)</code> will read up to <code>count</code>
+bytes from the file descriptor <code>fd</code> into the buffer
+<code>*buf</code>. On success it will return the number of bytes that
+were read, and the file position is advanced by this number. On error
+<code>-1</code> is returned and <code>errno</code> will be set as
+well.</p>
+<p>The file position keeps track of where in the file the next character
+is to be read or written. This is ‘offset’ being recorded by the kernel.
+<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a> On all POSIX.1 systems, the file
+position is an integer representing the number of bytes from the
+beginning of the file. The file position is normally set to the
+beginning of the file when it is opened, and each time a character is
+read or written, the file position is incremented sequentially. <a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a></p>
+<h3 id="fd">fd</h3>
+<p>This argument <code>fd</code> needs to be the file descriptor, this
+is the new socket that was returned by the <code>accept(2)</code>
+function.</p>
+<h3 id="buf">buf</h3>
+<p>The <code>buf</code> argument needs to be a pointer to the address of
+the memory buffer that you want the contents of the file descriptor
+<code>fd</code> to be read into as a temporary storage. This buffer must
+be at least <code>count</code> bytes long. In our case we will be
+creating a buffer that will be an array of the type <code>char</code>.
+And because the array name is converted to pointer, we can use the
+variable name of the buffer as the argument.</p>
+<h3 id="count">count</h3>
+<p>We need to provide how many bytes we want to ready from the file
+descriptor <code>fd</code> into the buffer. This depends on how large of
+a buffer you’re creating. In this example we’ll create an array of 2048
+characters.</p>
+<p>The type <code>size_t</code> is a unsigned integer type. It is
+commonly used by the standard library to represent sizes and counts. Its
+specific size is platform dependent.</p>
+<h3 id="return-value-4">return value</h3>
+<p>The return value is the number of bytes that were read into the
+buffer, or 0 if the end of the file has been reached. On error, -1 is
+returned, and <code>errno</code> is set appropriately. The
+<code>ssize_t</code> is a ‘signed’ integer type, again it is commonly
+used by the standard library to represent sizes and counts, and it holds
+the byte count of what was read into the buffer.</p>
+<h3 id="implementation-5">Implementation</h3>
+<p>First, we need to implement the buffer, we will do this as soon as
+the program begins. For now, we will create an array of the type
+<code>char</code> with a size of <code>2048</code>. (each
+<code>char</code> is 1 byte). Don’t forget to include the header file
+<code>uninstd.h</code>.</p>
+<p>You’ll also be able to check the number of bytes that are read, and
+continue reading when the limit of the buffer is reached. However for
+now we’ll keep it simple.</p>
+<p>Additionally, because the requests is likely sent using the HTTP
+protocol. We can expect a certain format of the request, as we’ve
+uncovered that in the beginning. Here you’ll be able to inspect the
+contents of the request and return data based on the request, like
+return specific requested html file, handling <code>GET</code>,
+<code>POST</code> requests, as well as error handling for when the
+request wasn’t using the HTTP protocol for instance, etc.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode cpp"><code class="sourceCode cpp hljs language-cpp"><span class="hljs-comment">// ./steps/step005.c</span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> PORT 8080</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> BUFFER_SIZE 1024</span>
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-type">char</span> buffer[BUFFER_SIZE];
+
+    <span class="hljs-comment">// Create a socket</span>
+    <span class="hljs-type">int</span> sockfd = <span class="hljs-built_in">socket</span>(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">if</span> (sockfd == <span class="hljs-number">-1</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (socket)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"socket created successfully\n"</span>);
+
+    <span class="hljs-comment">// Create the address to bind the socket to</span>
+    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> host_addr;
+    <span class="hljs-type">int</span> host_addrlen = <span class="hljs-built_in">sizeof</span>(host_addr);
+
+    host_addr.sin_family = AF_INET;
+    host_addr.sin_port = <span class="hljs-built_in">htons</span>(PORT);
+    host_addr.sin_addr.s_addr = <span class="hljs-built_in">htonl</span>(INADDR_ANY);
+
+    <span class="hljs-comment">// Bind the socket to the address</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">bind</span>(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;host_addr, host_addrlen) != <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (bind)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"socket successfully bound to address\n"</span>);
+
+    <span class="hljs-comment">// Listen for incoming connections</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">listen</span>(sockfd, SOMAXCONN) != <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (listen)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"server listening for connections\n"</span>);
+
+    <span class="hljs-keyword">for</span> (;;) {
+        <span class="hljs-comment">// Accept incoming connections</span>
+        <span class="hljs-type">int</span> newsockfd = <span class="hljs-built_in">accept</span>(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;host_addr,
+                               (<span class="hljs-type">socklen_t</span> *)&amp;host_addrlen);
+        <span class="hljs-keyword">if</span> (newsockfd &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (accept)"</span>);
+            <span class="hljs-keyword">continue</span>;
+        }
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"connection accepted\n"</span>);
+
+        <span class="hljs-comment">// Read from the socket</span>
+        <span class="hljs-type">int</span> valread = <span class="hljs-built_in">read</span>(newsockfd, buffer, BUFFER_SIZE);
+        <span class="hljs-keyword">if</span> (valread &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (read)"</span>);
+            <span class="hljs-keyword">continue</span>;
+        }
+
+        <span class="hljs-built_in">close</span>(newsockfd);
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<h2 id="write">Write</h2>
+<p>Now that we are able to read the message that the client has sent to
+us, we also want to relay something back to the client again. Because
+we’re implementing a webserver, we’re going to return a simple webpage.
+Again, because we are implementing a HTTP webserver we need to adhere to
+the HTTP protocol. That means that we need to structure our response to
+these rules.</p>
+<p>We will be using the same socket the <code>accept(2)</code> function
+that we’ve just read from. Because this socket is a file descriptor we
+will, just as with <code>read(2)</code>, be able to write to this socket
+using the <code>write(2)</code> function.</p>
+<pre class="text"><code class="hljs language-plaintext">$ man 2 write
+
+NAME
+       write - write to a file descriptor
+
+SYNOPSIS
+       #include &lt;unistd.h&gt;
+
+       ssize_t write(int fd, const void *buf, size_t count);
+
+       write() writes up to count bytes from the buffer starting at buf to the
+       file referred to by the file descriptor fd.
+       ...</code></pre>
+<p>The function <code>write(2)</code> will write bytes up to
+<code>count</code> from the buffer pointed to by <code>buf</code> to the
+file referenced by the file descriptor <code>fd</code>. On success it
+will return number of bytes written. On error <code>-1</code> is
+returned and <code>errno</code> will be set appropriately.</p>
+<h3 id="fd-1">fd</h3>
+<p>As mentioned above the argument <code>fd</code> is the file
+descriptor that references the socket we’ve created by calling the
+<code>accept(2)</code> function. This is the also the same file
+descriptor from which we read the request with the function
+<code>read(2)</code>.</p>
+<h3 id="buf-1">buf</h3>
+<p>The <code>buf</code> arguments need to be a pointer to what we want
+to write to as a response. For now we will use a pre-defined string that
+we will add to the server. We can eventually extend this webserver to
+serve actual html files. But for now we will add the following:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode cpp"><code class="sourceCode cpp hljs language-cpp"><span class="hljs-type">char</span> resp[] = <span class="hljs-string">"HTTP/1.0 200 OK\r\n"</span>
+<span class="hljs-string">"Server: webserver-c\r\n"</span>
+<span class="hljs-string">"Content-type: text/html\r\n\r\n"</span>
+<span class="hljs-string">"&lt;html&gt;hello, world&lt;/html&gt;\r\n"</span>;</code></pre></div>
+<p>Note, that the string is formatted following the HTTP protocol. (See:
+<a href="#basics">Basics</a>) We start with the request line, followed
+by the headers, and it ends with the body. The escape code
+<code>\r\n</code> is used to separate the different sections of the
+request. The escape code <code>\r</code> stands for carriage return and
+will set the cursor at the beginning of the line, and <code>\n</code>
+for new line and will move the cursor to a new line.</p>
+<h3 id="count-1">count</h3>
+<p>The argument <code>count</code> is the number of bytes we need write
+to the file <code>fd</code> from buffer <code>buf</code>. Because we
+want to write the complete contents we need to know how many bytes there
+are in the buffer. We do that by using <code>strlen()</code>.</p>
+<pre class="text"><code class="hljs language-plaintext">$ man 3 strlen
+
+NAME
+       strlen - calculate the length of a string
+
+SYNOPSIS
+       #include &lt;string.h&gt;
+
+       size_t strlen(const char *s);
+
+DESCRIPTION
+       The  strlen() function calculates the length of the string pointed to by
+       s, excluding the terminating null byte ('\0').
+
+RETURN VALUE
+       The strlen() function returns the number of characters in the string
+       pointed to by s.</code></pre>
+<p>So, we can provide the <code>s</code> argument and we will get the
+number of characters we provided in the string point to by
+<code>s</code>.</p>
+<h3 id="return-value-5">return value</h3>
+<p>The return value of the <code>write(2)</code> function will be the
+number of bytes written to the file and its type is
+<code>ssize_t</code>. From before we’ve noted that <code>size_t</code>
+was used to represent sizes and counts, this version is the signed
+version of <code>size_t</code>, which means that it can hold values less
+than zero. So, in this case a value of less than zero, <code>-1</code>
+is means an error occurred and <code>errno</code> will be set
+appropriately. When the return value is zero, it indicates that nothing
+was written. It will not mean that an error occurred when this number is
+smaller than the number of bytes that were requested.</p>
+<h3 id="implementation-6">Implementation</h3>
+<p>We will implement this first by creating the buffer, and we will
+follow the instructions we’ve mentioned above. Because, we are done with
+writing to the newly created socket we need to also close it. We’ve
+already called <code>close(2)</code> in the last section when we used
+the <code>read(2)</code> function. Now before we close it though, we
+want to write to it. So put the <code>write(2)</code> function above the
+<code>close(2)</code> function.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode cpp"><code class="sourceCode cpp hljs language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> PORT 8080</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> BUFFER_SIZE 1024</span>
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-type">char</span> buffer[BUFFER_SIZE];
+    <span class="hljs-type">char</span> resp[] = <span class="hljs-string">"HTTP/1.0 200 OK\r\n"</span>
+                  <span class="hljs-string">"Server: webserver-c\r\n"</span>
+                  <span class="hljs-string">"Content-type: text/html\r\n\r\n"</span>
+                  <span class="hljs-string">"&lt;html&gt;hello, world&lt;/html&gt;\r\n"</span>;
+
+    <span class="hljs-comment">// Create a socket</span>
+    <span class="hljs-type">int</span> sockfd = <span class="hljs-built_in">socket</span>(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">if</span> (sockfd == <span class="hljs-number">-1</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (socket)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"socket created successfully\n"</span>);
+
+    <span class="hljs-comment">// Create the address to bind the socket to</span>
+    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> host_addr;
+    <span class="hljs-type">int</span> host_addrlen = <span class="hljs-built_in">sizeof</span>(host_addr);
+
+    host_addr.sin_family = AF_INET;
+    host_addr.sin_port = <span class="hljs-built_in">htons</span>(PORT);
+    host_addr.sin_addr.s_addr = <span class="hljs-built_in">htonl</span>(INADDR_ANY);
+
+    <span class="hljs-comment">// Bind the socket to the address</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">bind</span>(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;host_addr, host_addrlen) != <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (bind)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"socket successfully bound to address\n"</span>);
+
+    <span class="hljs-comment">// Listen for incoming connections</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">listen</span>(sockfd, SOMAXCONN) != <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (listen)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"server listening for connections\n"</span>);
+
+    <span class="hljs-keyword">for</span> (;;) {
+        <span class="hljs-comment">// Accept incoming connections</span>
+        <span class="hljs-type">int</span> newsockfd = <span class="hljs-built_in">accept</span>(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;host_addr,
+                               (<span class="hljs-type">socklen_t</span> *)&amp;host_addrlen);
+        <span class="hljs-keyword">if</span> (newsockfd &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (accept)"</span>);
+            <span class="hljs-keyword">continue</span>;
+        }
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"connection accepted\n"</span>);
+
+        <span class="hljs-comment">// Read from the socket</span>
+        <span class="hljs-type">int</span> valread = <span class="hljs-built_in">read</span>(newsockfd, buffer, BUFFER_SIZE);
+        <span class="hljs-keyword">if</span> (valread &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (read)"</span>);
+            <span class="hljs-keyword">continue</span>;
+        }
+
+        <span class="hljs-comment">// Write to the socket</span>
+        <span class="hljs-type">int</span> valwrite = <span class="hljs-built_in">write</span>(newsockfd, resp, <span class="hljs-built_in">strlen</span>(resp));
+        <span class="hljs-keyword">if</span> (valwrite &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (write)"</span>);
+            <span class="hljs-keyword">continue</span>;
+        }
+
+        <span class="hljs-built_in">close</span>(newsockfd);
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<p>And that concludes the implementation of all the steps from the
+section <a href="#basics">Basics</a>.</p>
+<pre class="ascii nohighlight"><code>                                                                                  
+┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓   ┏━━━━━━━━━━━━┓
+┃   SOCKET   ┃ ▶ ┃    BIND    ┃ ▶ ┃   LISTEN   ┃ ▶ ┃   ACCEPT   ┃ ▶ ┃ READ/WRITE ┃
+┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━┛
+ ───────────▶     ───────────▶     ───────────▶     ───────────▶     ───────────▶ </code></pre>
+<p>All what is left to do is to compile and run the program!</p>
+<h3 id="lets-run-it">Let’s run it!</h3>
+<p>We’ll go to the command line and run the following command:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash"><code class="sourceCode bash hljs language-bash">$ gcc -Wall webserver.c -o webserver
+$ ./webserver</code></pre></div>
+<p>Now, you should be able to open your browser and check: <a href="http://localhost:8080/" class="uri">http://localhost:8080</a>, and
+you should be greeted by the ‘hello, world’ message. Let’s also try to
+implement some logging to the terminal, so we can see who is making the
+request and what the request was.</p>
+<h2 id="client_address">Client address</h2>
+<p>In order to get the client address information we can use the
+function <code>getsockname(2)</code>. Let’s see what the man page
+says:</p>
+<pre class="text"><code class="hljs language-plaintext">NAME
+       getsockname - get socket name
+
+SYNOPSIS
+       #include &lt;sys/socket.h&gt;
+
+       int getsockname(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+
+DESCRIPTION
+       getsockname() returns the current address to which the socket sockfd is
+       bound, in the buffer pointed to by addr. The addrlen argument should be
+       initialized to indicate the amount of space (in bytes) pointed to by
+       addr. On return it contains the actual size of the socket address.
+
+       The returned address is truncated if the buffer provided is too small;
+       in this case, addrlen will return a value greater than was supplied to
+       the call.
+
+RETURN VALUE
+       On success, zero is returned. On error, -1 is returned, and errno is
+       set appropriately.</code></pre>
+<h3 id="sockfd-3">sockfd</h3>
+<p>So from the man page we read that we can get the current address to
+which the socket <code>sockfd</code> is bound. We got a new connected
+socket with the client from <code>accept</code> that is called
+<code>newsockfd</code> so we can use that in the
+<code>getsockname(2)</code> function.</p>
+<h3 id="addr-2">addr</h3>
+<p>This argument should be a pointer to a <code>struct sockaddr</code>
+structure, and should looking familiar since we’ve used it before when
+we used <code>bind(2)</code>. So we will use the same structure.</p>
+<h3 id="addrlen-2">addrlen</h3>
+<p>Like the <code>addr</code> argument we’ve used in the
+<code>bind(2)</code> function, this argument will also be a pointer to a
+<code>socklen_t</code> struct. Again we will be doing the same as we did
+with <code>bind(2)</code>.</p>
+<h3 id="implementation-7">Implementation</h3>
+<p>When we’ve implemented the <code>getsockname(2)</code> we will be
+able to relay the client’s ip address and port. These are available from
+the <code>sin_addr</code> and <code>sin_port</code> fields of the
+<code>struct sockaddr_in</code> structure.</p>
+<p>We need to convert them to a string representation, that we can use
+to print. For that we will use the <code>inet_ntoa(3)</code>function
+(Internet host address, given in network byte order, to a string in IPv4
+dotted decimal notation), and the <code>ntohs(3)</code> (network byte
+order to short integer byte order)</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode cpp"><code class="sourceCode cpp hljs language-cpp"><span class="hljs-comment">// ./steps/step007.c</span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> PORT 8080</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> BUFFER_SIZE 1024</span>
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-type">char</span> buffer[BUFFER_SIZE];
+    <span class="hljs-type">char</span> resp[] = <span class="hljs-string">"HTTP/1.0 200 OK\r\n"</span>
+                  <span class="hljs-string">"Server: webserver-c\r\n"</span>
+                  <span class="hljs-string">"Content-type: text/html\r\n\r\n"</span>
+                  <span class="hljs-string">"&lt;html&gt;hello, world&lt;/html&gt;\r\n"</span>;
+
+    <span class="hljs-comment">// Create a socket</span>
+    <span class="hljs-type">int</span> sockfd = <span class="hljs-built_in">socket</span>(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">if</span> (sockfd == <span class="hljs-number">-1</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (socket)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"socket created successfully\n"</span>);
+
+    <span class="hljs-comment">// Create the address to bind the socket to</span>
+    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> host_addr;
+    <span class="hljs-type">int</span> host_addrlen = <span class="hljs-built_in">sizeof</span>(host_addr);
+
+    host_addr.sin_family = AF_INET;
+    host_addr.sin_port = <span class="hljs-built_in">htons</span>(PORT);
+    host_addr.sin_addr.s_addr = <span class="hljs-built_in">htonl</span>(INADDR_ANY);
+
+    <span class="hljs-comment">// Create client address</span>
+    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> client_addr;
+    <span class="hljs-type">int</span> client_addrlen = <span class="hljs-built_in">sizeof</span>(client_addr);
+
+    <span class="hljs-comment">// Bind the socket to the address</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">bind</span>(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;host_addr, host_addrlen) != <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (bind)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"socket successfully bound to address\n"</span>);
+
+    <span class="hljs-comment">// Listen for incoming connections</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">listen</span>(sockfd, SOMAXCONN) != <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (listen)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"server listening for connections\n"</span>);
+
+    <span class="hljs-keyword">for</span> (;;) {
+        <span class="hljs-comment">// Accept incoming connections</span>
+        <span class="hljs-type">int</span> newsockfd = <span class="hljs-built_in">accept</span>(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;host_addr,
+                               (<span class="hljs-type">socklen_t</span> *)&amp;host_addrlen);
+        <span class="hljs-keyword">if</span> (newsockfd &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (accept)"</span>);
+            <span class="hljs-keyword">continue</span>;
+        }
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"connection accepted\n"</span>);
+
+        <span class="hljs-comment">// Get client address</span>
+        <span class="hljs-type">int</span> sockn = <span class="hljs-built_in">getsockname</span>(newsockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;client_addr,
+                                (<span class="hljs-type">socklen_t</span> *)&amp;client_addrlen);
+        <span class="hljs-keyword">if</span> (sockn &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (getsockname)"</span>);
+            <span class="hljs-keyword">continue</span>;
+        }
+
+        <span class="hljs-comment">// Read from the socket</span>
+        <span class="hljs-type">int</span> valread = <span class="hljs-built_in">read</span>(newsockfd, buffer, BUFFER_SIZE);
+        <span class="hljs-keyword">if</span> (valread &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (read)"</span>);
+            <span class="hljs-keyword">continue</span>;
+        }
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"[%s:%u]\n"</span>, <span class="hljs-built_in">inet_ntoa</span>(client_addr.sin_addr),
+               <span class="hljs-built_in">ntohs</span>(client_addr.sin_port));
+
+        <span class="hljs-comment">// Write to the socket</span>
+        <span class="hljs-type">int</span> valwrite = <span class="hljs-built_in">write</span>(newsockfd, resp, <span class="hljs-built_in">strlen</span>(resp));
+        <span class="hljs-keyword">if</span> (valwrite &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (write)"</span>);
+            <span class="hljs-keyword">continue</span>;
+        }
+
+        <span class="hljs-built_in">close</span>(newsockfd);
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<h2 id="request_headers">Get request headers</h2>
+<p>We’ve read the request from the client from the socket with
+<code>read(2)</code>, now we can print the contents of the request
+message from the <code>buffer</code>, and we should see how the request
+of the client looks like. Since the client is sending the request
+adhering the HTTP protocol, we can use <code>sscanf(3)</code> to parse
+the request. Since the request line is the first line of the request,
+and is structured as follows:
+<code>&lt;method&gt; &lt;path&gt; &lt;version&gt;</code>, we can use
+<code>sscanf(3)</code> to parse the request line, and get the method,
+path and version.</p>
+<p>Let’s check the man page for <code>sscanf(3)</code>:</p>
+<pre class="text"><code class="hljs language-plaintext">NAME
+       scanf, fscanf, sscanf, vscanf, vsscanf, vfscanf - input format conversion
+
+SYNOPSIS
+       #include &lt;stdio.h&gt;
+
+       int sscanf(const char *str, const char *format, ...);
+
+DESCRIPTION
+
+        ...
+        The scanf() function reads input from the standard input stream
+        stdin, fscanf() reads input from the stream pointer stream, and
+        sscanf() reads its input from the character string pointed to by
+        str.
+        ...</code></pre>
+<h3 id="str">str</h3>
+<p>This argument is a pointer to a character string that contains the
+input data. We will thus use the <code>buffer</code> that we’ve read
+from the socket.</p>
+<h3 id="format">format</h3>
+<p>The <code>format</code> argument is a string that specifies the
+format of the input data. And we can use string formatting to parse the
+request line.</p>
+<h3 id="return-value-6">return value</h3>
+<p>On success, the number of input items successfully converted and
+assigned is returned. On failure, the return value is EOF, and no
+characters are assigned to the arguments.</p>
+<h3 id="implementation-8">Implementation</h3>
+<div class="sourceCode" id="cb44"><pre class="sourceCode cpp"><code class="sourceCode cpp hljs language-cpp"><span class="hljs-comment">// webserver.c</span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> PORT 8080</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> BUFFER_SIZE 1024</span>
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-type">char</span> buffer[BUFFER_SIZE];
+    <span class="hljs-type">char</span> resp[] = <span class="hljs-string">"HTTP/1.0 200 OK\r\n"</span>
+                  <span class="hljs-string">"Server: webserver-c\r\n"</span>
+                  <span class="hljs-string">"Content-type: text/html\r\n\r\n"</span>
+                  <span class="hljs-string">"&lt;html&gt;hello, world&lt;/html&gt;\r\n"</span>;
+
+    <span class="hljs-comment">// Create a socket</span>
+    <span class="hljs-type">int</span> sockfd = <span class="hljs-built_in">socket</span>(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">if</span> (sockfd == <span class="hljs-number">-1</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (socket)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"socket created successfully\n"</span>);
+
+    <span class="hljs-comment">// Create the address to bind the socket to</span>
+    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> host_addr;
+    <span class="hljs-type">int</span> host_addrlen = <span class="hljs-built_in">sizeof</span>(host_addr);
+
+    host_addr.sin_family = AF_INET;
+    host_addr.sin_port = <span class="hljs-built_in">htons</span>(PORT);
+    host_addr.sin_addr.s_addr = <span class="hljs-built_in">htonl</span>(INADDR_ANY);
+
+    <span class="hljs-comment">// Create client address</span>
+    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> client_addr;
+    <span class="hljs-type">int</span> client_addrlen = <span class="hljs-built_in">sizeof</span>(client_addr);
+
+    <span class="hljs-comment">// Bind the socket to the address</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">bind</span>(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;host_addr, host_addrlen) != <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (bind)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"socket successfully bound to address\n"</span>);
+
+    <span class="hljs-comment">// Listen for incoming connections</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">listen</span>(sockfd, SOMAXCONN) != <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (listen)"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"server listening for connections\n"</span>);
+
+    <span class="hljs-keyword">for</span> (;;) {
+        <span class="hljs-comment">// Accept incoming connections</span>
+        <span class="hljs-type">int</span> newsockfd = <span class="hljs-built_in">accept</span>(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;host_addr,
+                               (<span class="hljs-type">socklen_t</span> *)&amp;host_addrlen);
+        <span class="hljs-keyword">if</span> (newsockfd &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (accept)"</span>);
+            <span class="hljs-keyword">continue</span>;
+        }
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"connection accepted\n"</span>);
+
+        <span class="hljs-comment">// Get client address</span>
+        <span class="hljs-type">int</span> sockn = <span class="hljs-built_in">getsockname</span>(newsockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;client_addr,
+                                (<span class="hljs-type">socklen_t</span> *)&amp;client_addrlen);
+        <span class="hljs-keyword">if</span> (sockn &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (getsockname)"</span>);
+            <span class="hljs-keyword">continue</span>;
+        }
+
+        <span class="hljs-comment">// Read from the socket</span>
+        <span class="hljs-type">int</span> valread = <span class="hljs-built_in">read</span>(newsockfd, buffer, BUFFER_SIZE);
+        <span class="hljs-keyword">if</span> (valread &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (read)"</span>);
+            <span class="hljs-keyword">continue</span>;
+        }
+
+        <span class="hljs-comment">// Read the request</span>
+        <span class="hljs-type">char</span> method[BUFFER_SIZE], uri[BUFFER_SIZE], version[BUFFER_SIZE];
+        <span class="hljs-built_in">sscanf</span>(buffer, <span class="hljs-string">"%s %s %s"</span>, method, uri, version);
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"[%s:%u] %s %s %s\n"</span>, <span class="hljs-built_in">inet_ntoa</span>(client_addr.sin_addr),
+               <span class="hljs-built_in">ntohs</span>(client_addr.sin_port), method, version, uri);
+
+        <span class="hljs-comment">// Write to the socket</span>
+        <span class="hljs-type">int</span> valwrite = <span class="hljs-built_in">write</span>(newsockfd, resp, <span class="hljs-built_in">strlen</span>(resp));
+        <span class="hljs-keyword">if</span> (valwrite &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-built_in">perror</span>(<span class="hljs-string">"webserver (write)"</span>);
+            <span class="hljs-keyword">continue</span>;
+        }
+
+        <span class="hljs-built_in">close</span>(newsockfd);
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<h2 id="conclusion">Conclusion / Next Steps</h2>
+<p>And that concludes our implementation of a simple HTTP server. We’ve
+covered the basics of implementing a simple HTTP web server, doing so
+we’ve also learned a bit about TCP/IP, HTTP, socket programming, and
+system calls. The resulting code gives you a basis to start implementing
+a more complex HTTP webserver that can handle multiple concurrent
+connections, and that can serve html files from the filesystem based on
+the path of the request.</p>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-ostep2018" class="csl-entry" role="listitem">
+Arpaci-Dusseau, Remzi H., and Andrea C. Arpaci-Dusseau. 2018.
+<em>Operating Systems: Three Easy Pieces</em>. Arpaci-Dusseau Books. <a href="http://pages.cs.wisc.edu/~remzi/OSTEP/">http://pages.cs.wisc.edu/~remzi/OSTEP/</a>.
+</div>
+<div id="ref-github_ostep" class="csl-entry" role="listitem">
+Github. 2020. <span>“Remzi-Arpacidusseau - Ostep Concurrency Webserver -
+Github.”</span> 2020. <a href="https://github.com/remzi-arpacidusseau/ostep-projects/tree/master/concurrency-webserver">https://github.com/remzi-arpacidusseau/ostep-projects/tree/master/concurrency-webserver</a>.
+</div>
+<div id="ref-lpi1961" class="csl-entry" role="listitem">
+Kerrisk, N. 2010. <em>The Linux Programming Interface: a Linux and UNIX
+system programming handbook</em>. No Starch Press.
+</div>
+<div id="ref-mozilla_webserver" class="csl-entry" role="listitem">
+Mozilla. 2020. <span>“What Is a Webserver - Mozilla.”</span> 2020. <a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_web_server">https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_web_server</a>.
+</div>
+<div id="ref-glibc" class="csl-entry" role="listitem">
+<span>“The GNU C Library Reference Manual.”</span> n.d. <a href="https://www.gnu.org/software/libc/manual/">https://www.gnu.org/software/libc/manual/</a>.
+</div>
+<div id="ref-wiki_webserver" class="csl-entry" role="listitem">
+Wikipedia. 2020. <span>“Webserver - Wikipedia, The Free
+Encyclopedia.”</span> 2020. <a href="https://en.wikipedia.org/wiki/Web_server">https://en.wikipedia.org/wiki/Web_server</a>.
+</div>
+</div>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><span class="citation" data-cites="ostep2018">Arpaci-Dusseau and Arpaci-Dusseau (<a href="#ref-ostep2018" role="doc-biblioref">2018</a>)</span><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://github.com/remzi-arpacidusseau/ostep-projects/tree/master/concurrency-webserver" class="uri">https://github.com/remzi-arpacidusseau/ostep-projects/tree/master/concurrency-webserver</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><span class="citation" data-cites="github_ostep">Github
+(<a href="#ref-github_ostep" role="doc-biblioref">2020</a>)</span>;
+<span class="citation" data-cites="mozilla_webserver">Mozilla (<a href="#ref-mozilla_webserver" role="doc-biblioref">2020</a>)</span>;
+<span class="citation" data-cites="wiki_webserver">Wikipedia (<a href="#ref-wiki_webserver" role="doc-biblioref">2020</a>)</span><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><span class="citation" data-cites="mozilla_webserver">Mozilla (<a href="#ref-mozilla_webserver" role="doc-biblioref">2020</a>)</span><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://tools.ietf.org/html/rfc2616" class="uri">https://tools.ietf.org/html/rfc2616</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" class="uri">https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><a href="https://en.wikipedia.org/wiki/Application_layer" class="uri">https://en.wikipedia.org/wiki/Application_layer</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p><a href="https://en.wikipedia.org/wiki/Internet_protocol_suite" class="uri">https://en.wikipedia.org/wiki/Internet_protocol_suite</a><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p><a href="https://github.com/remzi-arpacidusseau/ostep-projects/tree/master/concurrency-webserver#http-background" class="uri">https://github.com/remzi-arpacidusseau/ostep-projects/tree/master/concurrency-webserver#http-background</a><a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p><a href="https://en.wikipedia.org/wiki/C_POSIX_library" class="uri">https://en.wikipedia.org/wiki/C_POSIX_library</a><a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p><a href="https://en.wikipedia.org/wiki/File_descriptor" class="uri">https://en.wikipedia.org/wiki/File_descriptor</a><a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p><a href="https://tools.ietf.org/html/draft-newman-network-byte-order-01" class="uri">https://tools.ietf.org/html/draft-newman-network-byte-order-01</a><a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>The terms derive from Jonathan Swift’s 1726 satirical
+novel Gulliver’s Travels, in which the terms refer to opposing political
+factions who open their boiled eggs at opposite ends. [<span class="citation" data-cites="lpi1961">Kerrisk (<a href="#ref-lpi1961" role="doc-biblioref">2010</a>)</span>; ch.&nbsp;59.2]<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p><a href="http://www.cplusplus.com/forum/general/14828/" class="uri">http://www.cplusplus.com/forum/general/14828/</a><a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p><span class="citation" data-cites="lpi1961">Kerrisk (<a href="#ref-lpi1961" role="doc-biblioref">2010</a>)</span>; ch.&nbsp;56.5<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p><span class="citation" data-cites="lpi1961">Kerrisk (<a href="#ref-lpi1961" role="doc-biblioref">2010</a>)</span>; ch. 56.5.2<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p><span class="citation" data-cites="lpi1961">Kerrisk (<a href="#ref-lpi1961" role="doc-biblioref">2010</a>)</span>; ch.&nbsp;4,
+ch.&nbsp;56.1<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn18"><p><span class="citation" data-cites="lpi1961">Kerrisk (<a href="#ref-lpi1961" role="doc-biblioref">2010</a>)</span>; ch. 4.7<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn19"><p><span class="citation" data-cites="glibc"><span>“The
+GNU C Library Reference Manual”</span> (<a href="#ref-glibc" role="doc-biblioref">n.d.</a>)</span>; ch.&nbsp;11.1.2<a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</article>
+
+
+<section class="section">
+    <div class="container">
+        <aside>
+            <iframe style="background-color: rgb(255, 255, 255) !important; border: 1px solid rgb(236, 147, 41) !important; min-width: 220px !important; min-height: 210px !important; max-height: 600px !important; pointer-events: all !important; z-index: 999 !important; width: 720px !important; --darkreader-inline-bgcolor: #181a1b; --darkreader-inline-border-top: #9e5c0e; --darkreader-inline-border-right: #9e5c0e; --darkreader-inline-border-bottom: #9e5c0e; --darkreader-inline-border-left: #9e5c0e;" srcdoc="&lt;html&gt;&lt;head&gt;&lt;style&gt;html, body {
+  color: #303030 !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+#btn-once-004460960810570924 {
+  border: 2px solid #f06a0a !important;
+  background-color: #f06a0a !important;
+  color: #fefefe !important;
+}
+#btn-site-0545194303869048 {
+  border: 2px solid #333 !important;
+  background-color: #fefefe !important;
+  color: #333 !important;
+}
+#btn-once-004460960810570924:hover {
+  background-color: #fefefe !important;
+  color: #333 !important;
+}
+#btn-site-0545194303869048:hover {
+  background-color: #fefefe !important;
+  border: 2px solid #f06a0a !important;
+}
+#ico-help-08526031503393504, #ico-close-06651140290538857 {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  text-align: center;
+  text-decoration: none;
+}
+#ico-close-06651140290538857 {
+  left: 4px;
+  width: 20px;
+}
+#ico-help-08526031503393504:before, #ico-close-06651140290538857:before {
+  border: 2px solid;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #555;
+  content: '?';
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, liberation sans, Ubuntu, helvetica neue, helvetica, Cantarell, roboto, noto, arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 1px;
+  height: 1em;
+  width: 1em;
+}
+#ico-close-06651140290538857:before {
+  border: 0;
+  content: '✕';
+  padding: 4px;
+}
+#ico-help-08526031503393504:hover:before, #ico-close-06651140290538857:hover:before {
+  color: #ec9329;
+}
+a {
+  text-decoration: underline;
+  color: black;
+}
+a:hover {
+  color: #ec9329;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+  body {
+    background-color: #333 !important;
+    color: #ddd !important;
+  }
+  a, a:visited {
+    color: #ddd !important;
+  }
+  a:hover {
+    color: #f06a0a !important;
+  }
+  #ico-help-08526031503393504:before, #ico-close-06651140290538857:before {
+    color: #aaa;
+  }
+  #btn-site-0545194303869048 {
+    background-color: #333 !important;
+    border: solid 2px #ddd !important;
+    color: #ddd !important;
+  }
+  #btn-once-004460960810570924:hover, #btn-site-0545194303869048:hover {
+    background-color: #333 !important;
+    color: #ddd !important;
+  }
+}&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot;margin:0&quot;&gt;&lt;div style=&quot;display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; width: 100% !important; height: 100% !important;&quot;&gt;&lt;div style=&quot;font-family: helvetica, arial, sans-serif !important; font-size: 16px !important; display: flex !important; flex-wrap: wrap !important; justify-content: center !important; text-align: center !important; margin: 10px !important;&quot;&gt;Privacy Badger has replaced this Disqus widget&lt;a id=&quot;ico-close-06651140290538857&quot; href=&quot;javascript:void(0)&quot;&gt;&lt;/a&gt;&lt;a id=&quot;ico-help-08526031503393504&quot; href=&quot;https://privacybadger.org/#How-does-Privacy-Badger-handle-social-media-widgets&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;font-family: helvetica, arial, sans-serif !important; font-size: 16px !important; display: flex !important; flex-wrap: wrap !important; justify-content: center !important; text-align: center !important; margin: 10px !important; width: 100% !important;&quot;&gt;&lt;button id=&quot;btn-once-004460960810570924&quot; style=&quot;transition: background-color 0.25s ease-out, border-color 0.25s ease-out, color 0.25s ease-out !important; border-radius: 3px !important; cursor: pointer !important; font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, liberation sans, Ubuntu, helvetica neue, helvetica, Cantarell, roboto, noto, arial, sans-serif !important; font-size: 14px !important; font-weight: bold !important; -moz-osx-font-smoothing: grayscale !important; line-height: 16px !important; padding: 10px !important; margin: 4px !important; width: 70% !important; max-width: 280px !important;&quot;&gt;Allow once&lt;/button&gt;&lt;button id=&quot;btn-site-0545194303869048&quot; style=&quot;transition: background-color 0.25s ease-out, border-color 0.25s ease-out, color 0.25s ease-out !important; border-radius: 3px !important; cursor: pointer !important; font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, liberation sans, Ubuntu, helvetica neue, helvetica, Cantarell, roboto, noto, arial, sans-serif !important; font-size: 14px !important; font-weight: bold !important; -moz-osx-font-smoothing: grayscale !important; line-height: 16px !important; padding: 10px !important; margin: 4px !important; width: 70% !important; max-width: 280px !important;&quot;&gt;Always allow on this site&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;" data-darkreader-inline-bgcolor="" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left=""></iframe>
+        </aside>
+        <script type="text/javascript">
+            var disqus_shortname = 'bruinsslot';
+            (function () {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript"
+                rel="nofollow">comments powered by Disqus.</a></noscript>
+    </div>
+</section>
+
+
+
+
+    </main>
+    <footer>
+<small>© 2024 J.P.H. Bruins Slot</small>
+
+    </footer>
+<script type="text/javascript" src="REFERENCE-Making_a_simple_HTTP_webserver_in_C-bruinsslot.jp_files/index.js"></script>
+
+
+
+
+</body></html>
