@@ -1,82 +1,67 @@
+// ./steps/step005.c
 #include <arpa/inet.h>
 #include <errno.h>
 #include <stdio.h>
 #include <sys/socket.h>
 #include <unistd.h>
 
-// struct sockaddr_in {
-// 	sa_family_t	sin_family; /* address family: AF_INET */
-// 	in_port_t	sin_port; /* port in network byte order */	
-// 	struct in_addr 	sin_addr; /*internet address*/
-// };
-// 
-// struct in_addr {
-// 	uint32_t	s_addr; /* address in network byte order */
-// };
+#include "simple_dictionary.h"
 
-//{{{1
+int PORT = 8080;
+int BUFFER_SIZE = 1024;
+
 int main() {
-	printf("starting server \n");
+    char buffer[BUFFER_SIZE];
 
-	int port = 8080;
-	
-	// {{{2 creating the socket
-	int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-	
-	if(sockfd == -1){
-		perror("webserver (socket)\n");
-		return 1;
-	}
-	printf("socket created successfully\n");
-	// }}} 2
+    // Create a socket
+    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd == -1) {
+        perror("webserver (socket)");
+        return 1;
+    }
+    printf("socket created successfully\n");
 
+    // Create the address to bind the socket to
+    struct sockaddr_in host_addr;
+    int host_addrlen = sizeof(host_addr);
 
-	// {{{2 create the addr and bind to socket
-	struct sockaddr_in host_addr;
-	int host_addrlen = sizeof(host_addr);
+    host_addr.sin_family = AF_INET;
+    host_addr.sin_port = htons(PORT);
+    host_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-	host_addr.sin_family = AF_INET;
-	host_addr.sin_port = htons(port);
-	host_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-	// }}}2
-	
-	// {{{2 bind the socket to addr
-	if (bind(sockfd, (struct sockaddr *)&host_addr, host_addrlen) != 0) {
-		perror("webserver (bind)\n");
-		return 1;
-	}	
-	printf("socket successfully bound to address\n");
-	// }}}2
+    // Bind the socket to the address
+    if (bind(sockfd, (struct sockaddr *)&host_addr, host_addrlen) != 0) {
+        perror("webserver (bind)");
+        return 1;
+    }
+    printf("socket successfully bound to address\n");
 
-	//{{{2 listen for incoming connections
-	if (listen(sockfd, SOMAXCONN) != 0) {
-		perror("webserver (listen)");
-		return 1;
-	}
-	printf("listening for connetions\n");
-	//}}}2
+    // Listen for incoming connections
+    if (listen(sockfd, SOMAXCONN) != 0) {
+        perror("webserver (listen)");
+        return 1;
+    }
+    printf("server listening for connections\n");
 
-	//{{{2 accept/refuse connection
-	for (;;){
-		//accept connections
-		int newsockfd = accept(
-			sockfd, (struct sockaddr*) &host_addr, 
-			(socklen_t*)&host_addrlen
-		);
-		
-		if(newsockfd < 0){
-			perror("webserver (accept)"); 
-			continue;
-		}
-		printf("connection accepted \n");
+    for (;;) {
+        // Accept incoming connections
+        int newsockfd = accept(sockfd, (struct sockaddr *)&host_addr,
+                               (socklen_t *)&host_addrlen);
+        if (newsockfd < 0) {
+            perror("webserver (accept)");
+            continue;
+        }
+        printf("connection accepted\n");
 
-		close(newsockfd);
-	}
-	//}}}2
+        // Read from the socket
+        int valread = read(newsockfd, buffer, BUFFER_SIZE);
+        if (valread < 0) {
+            perror("webserver (read)");
+            continue;
+        }
 
-	//{{{2 read/write
-	//}}}2
+        close(newsockfd);
+    }
 
-	return 0;
-};
-//}}}1
+    return 0;
+}
