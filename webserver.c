@@ -10,16 +10,23 @@
 int PORT = 8080;
 int BUFFER_SIZE = 1024;
 
+
+int CreateSocket(){
+	int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+
+	if (sockfd == -1) {
+		perror("webserver (socket)");
+		return 1;
+	}
+	printf("socket created successfully\n");
+
+	return 0;
+}
+
 int main() {
     char buffer[BUFFER_SIZE];
 
     // Create a socket
-    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd == -1) {
-        perror("webserver (socket)");
-        return 1;
-    }
-    printf("socket created successfully\n");
 
     // Create the address to bind the socket to
     struct sockaddr_in host_addr;

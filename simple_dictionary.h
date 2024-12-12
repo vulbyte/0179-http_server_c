@@ -1,6 +1,7 @@
 #include <strings.h>
 #include <stdlib.h>
 
+/* definition of the dictionary */
 struct nlist { /* table entry: */
 	struct nlist *next; /* next entry in chain */
 	char *name; /* defined name */
@@ -31,10 +32,10 @@ struct nlist *lookup(char *s){
 
 char *str_dup(char *);
 /* install: put (name, defn) in hashtab */
-struct nlist *install(char *name, char *defn){
+struct nlist *add(char *name, char *defn){
 	struct nlist *np;
 	unsigned hashval;
-	if ((np = lookup(name)) == NULL) { /* not found */
+	if ((np = find(name)) == NULL) { /* not found */
 		np = (struct nlist *) malloc(sizeof(*np));
 
 		if (np == NULL || (np->name = str_dup(name)) == NULL){
