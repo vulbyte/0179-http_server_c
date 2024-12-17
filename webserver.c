@@ -64,13 +64,41 @@ int BindSocketToAddress(
 /*}}}2*/
 
 /*{{{2 Read()*/
-int Read(){
+int Read(
+	int newsockfd,
+	char buffer[BUFFER_SIZE]
+){
+	int valread = read(
+		newsockfd, 
+		buffer, 
+		BUFFER_SIZE
+	);
+
+	if (valread < 0) {
+		perror("webserver (read)");
+		return(0);
+	}
+
 	return(1);
 }
 /*}}}2*/
 
 /*{{{2 Write()*/
-int Write(){
+int Write(
+	int newsockfd
+){
+	char resp[] = 
+	"HTTP/1.0 200 OK\r\n"
+	"Server: webserver-c\r\n"
+	"Content-type: text/html\r\n\r\n"
+	"<html><h1>hellope</h1>\n<p>first message from the server :3</p></html>\r\n";
+
+	int valwrite = write(newsockfd, resp, strlen(resp));
+	if (valwrite < 0){
+		perror("webserver (write)");
+		return(0);
+	}
+
 	return(1);
 }
 /*}}}2*/
@@ -86,7 +114,7 @@ int ListenForIncomingConnections(
         perror("webserver (listen)");
         return 0;
     }
-    printf("server listening for connections\n");
+    printf("server listPening for connections\n");
 
     for (;;) {
         // Accept incoming connections
@@ -103,19 +131,17 @@ int ListenForIncomingConnections(
         printf("connection accepted\n");
 
         // Read from the socket
-		Read();
-        int valread = read(
-			newsockfd, 
-			buffer, 
-			BUFFER_SIZE
-		);
+		int read = Read(newsockfd, buffer);
+		if(read <= 0){
+			//printf("nothing to read");
+			continue;
+		}
+		int write = Write(newsockfd);
+		if(write <= 0){
+			continue;	
+		}
 
-        if (valread < 0) {
-            perror("webserver (read)");
-            continue;
-        }
-
-        close(newsockfd);
+		close(newsockfd);
     }
 
 	return (1);
