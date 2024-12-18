@@ -15,6 +15,10 @@
 #define BUFFER_SIZE 1024
 /*}}}1*/
 
+/* VARS */
+struct sockaddr_in client_addr;
+int client_addrlen = sizeof(client_addr);
+
 /*{{{1 structs */
 	struct sockaddr_in host_addr;
 /*}}}1 */
@@ -34,7 +38,6 @@ int CreateSocket(){
 	return sockfd;
 }
 /*}}}2*/
-/*}}}1*/
 
 /*{{{2 CreateAddress*/
 struct sockaddr_in CreateAddress(int host_addrlen){
@@ -63,8 +66,29 @@ int BindSocketToAddress(
 }
 /*}}}2*/
 
+/*{{{2 ReadRequest() */
+int ReadRequest(char buffer[BUFFER_SIZE]){
+	char method[BUFFER_SIZE], uri[BUFFER_SIZE], version[BUFFER_SIZE];
+	sscanf(buffer, "%s %s %s", method, uri, version);
+	/*printf(
+		"[%s:%u] %s %s %s  \n", 
+		inet_ntoa(client_addr.sin_addr),
+		ntohs(client_addr.sin_port), 
+		method, 
+		version, 
+		uri
+	);*/
+	printf("[%s:", inet_ntoa(client_addr.sin_addr));
+	printf("%u] \n", ntohs(client_addr.sin_port));
+	printf("method: %s \n", method);
+	printf("version: %s \n", version);
+	printf("uri: %s\n", version);
+
+	return(1);
+};
+/*}}}2*/
 /*{{{2 Read()*/
-int Read(
+int ReadFromSocket(
 	int newsockfd,
 	char buffer[BUFFER_SIZE]
 ){
@@ -79,6 +103,10 @@ int Read(
 		return(0);
 	}
 
+	int read = ReadRequest(buffer);
+	if(read != 1){
+		perror("failed to read request");
+	}
 	return(1);
 }
 /*}}}2*/
@@ -130,12 +158,33 @@ int ListenForIncomingConnections(
         }
         printf("connection accepted\n");
 
+		/* Get client address */
+		int sockn = getsockname(
+			newsockfd, 
+			(struct sockaddr *)&client_addr,
+			(socklen_t*)&client_addrlen
+		);
+		if(sockn < 0){
+			perror("webserver (getsockname) \n");
+			continue;
+		}
+		else{
+			/*printf("sockn client addr: %n", &sockn);*/
+		}
+
         // Read from the socket
-		int read = Read(newsockfd, buffer);
+		int read = ReadFromSocket(newsockfd, buffer);
 		if(read <= 0){
 			//printf("nothing to read");
 			continue;
 		}
+		printf("sock client info: ");
+		printf(
+			"[%s:%u]\n", 
+			inet_ntoa(client_addr.sin_addr),
+			ntohs(client_addr.sin_port)
+		);
+
 		int write = Write(newsockfd);
 		if(write <= 0){
 			continue;	
@@ -146,8 +195,8 @@ int ListenForIncomingConnections(
 
 	return (1);
 }
-
 /*}}}2*/
+/*}}}1*/
 
 
 /*{{{1 int main()*/
