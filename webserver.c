@@ -70,19 +70,12 @@ int BindSocketToAddress(
 int ReadRequest(char buffer[BUFFER_SIZE]){
 	char method[BUFFER_SIZE], uri[BUFFER_SIZE], version[BUFFER_SIZE];
 	sscanf(buffer, "%s %s %s", method, uri, version);
-	/*printf(
-		"[%s:%u] %s %s %s  \n", 
-		inet_ntoa(client_addr.sin_addr),
-		ntohs(client_addr.sin_port), 
-		method, 
-		version, 
-		uri
-	);*/
-	printf("[%s:", inet_ntoa(client_addr.sin_addr));
-	printf("%u] \n", ntohs(client_addr.sin_port));
-	printf("method: %s \n", method);
-	printf("version: %s \n", version);
-	printf("uri: %s\n", version);
+	//printf("\tca.sin_addr:ca.sin_port[%s:", inet_ntoa(client_addr.sin_addr));
+	printf("\t client_addr: %s \n", inet_ntoa(client_addr.sin_addr));
+	printf("\t client_port: %hu \n", ntohs(client_addr.sin_port));
+	printf("\t method: %s \n", method);
+	printf("\t uri: %s\n", uri);
+	printf("\t version: %s \n", version);
 
 	return(1);
 };
@@ -178,12 +171,13 @@ int ListenForIncomingConnections(
 			//printf("nothing to read");
 			continue;
 		}
-		printf("sock client info: ");
+		/*printf("sock client info: ");
 		printf(
 			"[%s:%u]\n", 
 			inet_ntoa(client_addr.sin_addr),
 			ntohs(client_addr.sin_port)
 		);
+		*/
 
 		int write = Write(newsockfd);
 		if(write <= 0){
