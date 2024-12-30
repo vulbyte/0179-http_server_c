@@ -13,20 +13,29 @@
 /*{{{1 MACROS */
 #define PORT 8080
 #define BUFFER_SIZE 1024
+#define DOMAIN "/Volumes/970p2tb/projects/0100-vulbyte_dot_com/vulbyteDotCom/" 
 /*}}}1*/
 
-/* VARS */
+/*{{{1 struct(s) */
+	struct request_info{
+		char method[BUFFER_SIZE];
+		char uri[BUFFER_SIZE];
+		char version[BUFFER_SIZE];
+	};
+/*}}}1 */
+
+/* {{{1 VARS */
+struct request_info err; //this is an error val, so leave blank
+struct sockaddr_in host_addr;
 struct sockaddr_in client_addr;
 int client_addrlen = sizeof(client_addr);
+/* }}}1 */
 
-/*{{{1 structs */
-	struct sockaddr_in host_addr;
-/*}}}1 */
 
 /*{{{1 functions */
 /*{{{2 int CreateSocket()*/
 int CreateSocket(){
-	printf("creating socket");
+	printf("creating socket\n");
 	int sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
 	if (sockfd == -1) {
@@ -41,12 +50,12 @@ int CreateSocket(){
 
 /*{{{2 CreateAddress*/
 struct sockaddr_in CreateAddress(int host_addrlen){
-	printf("creating address");
+	printf("creating address\n");
 	host_addr.sin_family = AF_INET;
 	host_addr.sin_port = htons(PORT);
 	host_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	
-	printf("address created successfully");
+	printf("address created successfully\n");
 	return(host_addr);
 }
 /*}}}2*/
@@ -67,9 +76,21 @@ int BindSocketToAddress(
 /*}}}2*/
 
 /*{{{2 ReadRequest() */
-int ReadRequest(char buffer[BUFFER_SIZE]){
+struct request_info ReadRequest(char buffer[BUFFER_SIZE]){
 	char method[BUFFER_SIZE], uri[BUFFER_SIZE], version[BUFFER_SIZE];
+
 	sscanf(buffer, "%s %s %s", method, uri, version);
+	struct request_info req; /*= {	
+		{*method},
+		{*uri},
+		{*version}
+	};*/
+
+	strcpy(req.method, method);
+	strcpy(req.uri, uri);
+	strcpy(req.version, version);
+
+	printf("📉 defined uri: %s\n", uri);
 	//printf("\tca.sin_addr:ca.sin_port[%s:", inet_ntoa(client_addr.sin_addr));
 	printf("\t client_addr: %s \n", inet_ntoa(client_addr.sin_addr));
 	printf("\t client_port: %hu \n", ntohs(client_addr.sin_port));
@@ -77,11 +98,11 @@ int ReadRequest(char buffer[BUFFER_SIZE]){
 	printf("\t uri: %s\n", uri);
 	printf("\t version: %s \n", version);
 
-	return(1);
+	return(req);
 };
 /*}}}2*/
 /*{{{2 Read()*/
-int ReadFromSocket(
+struct request_info ReadFromSocket(
 	int newsockfd,
 	char buffer[BUFFER_SIZE]
 ){
@@ -93,32 +114,109 @@ int ReadFromSocket(
 
 	if (valread < 0) {
 		perror("webserver (read)");
-		return(0);
+		return(err);
 	}
 
-	int read = ReadRequest(buffer);
-	if(read != 1){
+	struct request_info read = ReadRequest(buffer);
+	printf("readfromsocket read.uri: %s \n", read.uri);
+	if(read.version[0] == '\0'){
 		perror("failed to read request");
 	}
-	return(1);
+	return(read);
 }
 /*}}}2*/
 
 /*{{{2 Write()*/
 int Write(
-	int newsockfd
-){
-	char resp[] = 
-	"HTTP/1.0 200 OK\r\n"
-	"Server: webserver-c\r\n"
-	"Content-type: text/html\r\n\r\n"
-	"<html><h1>hellope</h1>\n<p>first message from the server :3</p></html>\r\n";
+	int newsockfd,
+	struct request_info req
+){ 
+	char fs [BUFFER_SIZE] = "/";
 
+	printf("req.uri = '%s' (length: %lu)\n", req.uri, strlen(req.uri));
+	printf("fs = '%s' (length: %lu)\n", fs, strlen(fs));
+	printf("strcmp result: %d\n", strcmp(req.uri, fs));
+
+	if(
+		strcmp(req.uri, fs) == 0
+	){
+		printf("🥶 link invalid, redirecting to home\n");
+
+		/*char redir[BUFFER_SIZE] = 
+			"HTTP/1.1 302 FOUND\r\n"
+			"Location: /index.html\r\n"
+			"Server: webserver-c\r\n"
+			"\r\n"
+		;
+
+		write(newsockfd, redir, strlen(redir));
+		return(0);*/
+		strcpy(req.uri, "index.html");
+	}
+
+	char file_path[BUFFER_SIZE];
+	snprintf(
+		file_path, 
+		BUFFER_SIZE, 
+		"%s%s", 
+		DOMAIN, 
+		req.uri
+	);
+
+	printf("serving file: %s \n", file_path);
+
+	FILE *file = fopen(
+		file_path,
+		"r"
+	);
+
+	char *content_type = "text/plain";
+	int last_char = sizeof(last_char);
+	printf("last_char: %i", last_char);
+
+	if(strstr(req.uri, ".html") != NULL) {content_type = "text/html";}
+	else if(strstr(req.uri, ".css") != NULL) {content_type = "text/css";}
+	else if(strstr(req.uri, ".js") != NULL) {content_type = "application/javascript";}
+
+
+	if(!file){
+		perror("websever (file open)");
+		return 0;
+	}
+	
+	char resp[BUFFER_SIZE];
+
+	snprintf(
+	resp, BUFFER_SIZE,
+	"HTTP/1.0 200 OK\r\nk"
+	"Server: webserver-c\r\n"
+	"Content-type: %s\r\n\r\n",
+	/*do not delete below >:c*/
+	/* "<html><h1>hellope</h1>\n<p>first message from the server :3</p></html>\r\n"; */
+	content_type
+	);
+
+	// send header
 	int valwrite = write(newsockfd, resp, strlen(resp));
 	if (valwrite < 0){
-		perror("webserver (write)");
+		perror("webserver (write headers)");
+		fclose(file);
 		return(0);
 	}
+
+	//send file contents
+	char file_buffer[BUFFER_SIZE];
+	size_t bytes_read;
+	while((bytes_read = fread(file_buffer, 1, BUFFER_SIZE, file))>0){
+		valwrite = write(newsockfd, file_buffer, bytes_read);
+		if(valwrite < 0){
+			perror("webserver (write file)");
+			fclose(file);
+			return 0;
+		}
+	}
+	
+	fclose(file);
 
 	return(1);
 }
@@ -135,7 +233,7 @@ int ListenForIncomingConnections(
         perror("webserver (listen)");
         return 0;
     }
-    printf("server listPening for connections\n");
+    printf("server listPending for connections\n");
 
     for (;;) {
         // Accept incoming connections
@@ -162,24 +260,18 @@ int ListenForIncomingConnections(
 			continue;
 		}
 		else{
-			/*printf("sockn client addr: %n", &sockn);*/
+			/*printf("sockn client addr: %n", &socke);*/
 		}
 
         // Read from the socket
-		int read = ReadFromSocket(newsockfd, buffer);
-		if(read <= 0){
+		struct request_info read = ReadFromSocket(newsockfd, buffer);
+		printf("between fn read.uri: %s\n", read.uri);
+		if(read.version[0] == '\0'){
 			//printf("nothing to read");
 			continue;
 		}
-		/*printf("sock client info: ");
-		printf(
-			"[%s:%u]\n", 
-			inet_ntoa(client_addr.sin_addr),
-			ntohs(client_addr.sin_port)
-		);
-		*/
 
-		int write = Write(newsockfd);
+		int write = Write(newsockfd, read);
 		if(write <= 0){
 			continue;	
 		}
@@ -206,13 +298,13 @@ int main() {
     // Bind the socket to the address
 	int bind_pass = BindSocketToAddress( sockfd, host_addr, host_addrlen);
 	if(bind_pass == 0){
-		printf("failed to bind socket");
+		printf("failed to bind socket\n");
 	}
 
     // Listen for incoming connections
 	int listened = ListenForIncomingConnections(buffer, sockfd, host_addr, host_addrlen);
 	if(listened == 0){
-		printf("failed to listen to connections");
+		printf("failed to listen to connections\r");
 	}
 
     return 0;
