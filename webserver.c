@@ -288,7 +288,7 @@ int main() {
     // Bind the socket to the address
 	int bind_pass = BindSocketToAddress( sockfd, host_addr, host_addrlen);
 	if(bind_pass == 0){
-		printf("failed to bind socket\n");
+		printf("🥶 failed to bind socket\n");
 		return 0;
 	}
 
@@ -296,6 +296,8 @@ int main() {
 	int listened = ListenForIncomingConnections(buffer, sockfd, host_addr, host_addrlen);
 	if(listened == 0){
 		printf("failed to listen to connections\r");
+		printf("🥶 failed to bind socket\n");
+		return 0;
 	}
 
     return 1;
