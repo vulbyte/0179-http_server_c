@@ -141,16 +141,6 @@ int Write(
 		strcmp(req.uri, fs) == 0
 	){
 		printf("🥶 link invalid, redirecting to home\n");
-
-		/*char redir[BUFFER_SIZE] = 
-			"HTTP/1.1 302 FOUND\r\n"
-			"Location: /index.html\r\n"
-			"Server: webserver-c\r\n"
-			"\r\n"
-		;
-
-		write(newsockfd, redir, strlen(redir));
-		return(0);*/
 		strcpy(req.uri, "index.html");
 	}
 
@@ -299,6 +289,7 @@ int main() {
 	int bind_pass = BindSocketToAddress( sockfd, host_addr, host_addrlen);
 	if(bind_pass == 0){
 		printf("failed to bind socket\n");
+		return 0;
 	}
 
     // Listen for incoming connections
@@ -307,6 +298,6 @@ int main() {
 		printf("failed to listen to connections\r");
 	}
 
-    return 0;
+    return 1;
 }
 /*}}}1*/
