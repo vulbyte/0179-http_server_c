@@ -148,12 +148,12 @@ int Write(
 	snprintf(
 		file_path, 
 		BUFFER_SIZE, 
-		"%s%s", 
-		DOMAIN, 
+		"%s", 
+		/*DOMAIN, */
 		req.uri
 	);
 
-	printf("serving file: %s \n", file_path);
+	printf("attempting to serve file: %s \n", file_path);
 
 	FILE *file = fopen(
 		file_path,
@@ -167,23 +167,36 @@ int Write(
 	if(strstr(req.uri, ".html") != NULL) {content_type = "text/html";}
 	else if(strstr(req.uri, ".css") != NULL) {content_type = "text/css";}
 	else if(strstr(req.uri, ".js") != NULL) {content_type = "application/javascript";}
+	else if(strstr(req.uri, ".ico") != NULL) {content_type = "image";}
+	
 
-
-	if(!file){
+	if(file == NULL){
 		perror("websever (file open)");
+		char resp[BUFFER_SIZE];
+		snprintf(resp, BUFFER_SIZE,
+			"HTTP/1.0 404 Not Found\r\n"
+			"Server: webserver-c"
+			"Content-type: text/plain \r\n"
+			"Content-Length: 15\r\n"
+			"\r\n"
+			"404 Not Found\n"
+		);
+		printf("sending 404");
+		write(newsockfd, resp, strlen(resp));
+		printf("sent 404");
 		return 0;
 	}
 	
 	char resp[BUFFER_SIZE];
 
 	snprintf(
-	resp, BUFFER_SIZE,
-	"HTTP/1.0 200 OK\r\nk"
-	"Server: webserver-c\r\n"
-	"Content-type: %s\r\n\r\n",
-	/*do not delete below >:c*/
-	/* "<html><h1>hellope</h1>\n<p>first message from the server :3</p></html>\r\n"; */
-	content_type
+		resp, BUFFER_SIZE,
+		"HTTP/1.0 200 OK\r\n"
+		"Server: webserver-c\r\n"
+		"Content-type: %s\r\n\r\n",
+		/*do not delete below >:c*/
+		/* "<html><h1>hellope</h1>\n<p>first message from the server :3</p></html>\r\n"; */
+		content_type
 	);
 
 	// send header
